@@ -1,0 +1,33 @@
+﻿$PBExportHeader$f_asp.srf
+global type f_asp from function_object
+end type
+
+forward prototypes
+global subroutine f_asp (string cadena)
+end prototypes
+
+global subroutine f_asp (string cadena);//Aspiradora	
+string ls_cadena
+int li_codigo,li_archivo
+if gi_asp = 1 then
+	if double(cadena) = 0 or isnull(cadena)then
+     ls_cadena = 'ECHO Enkasoft SA >com1'		 
+   else
+	  ls_cadena = 'ECHO ' + cadena + '>com1'
+   end if
+	li_archivo = FileOpen ("C:\PUNTO\TXT.BAT",StreamMode!,Write!,LockWrite!,Replace!)
+	if li_archivo < 0 then
+		messagebox('Información','No es posible abrier el archivo CRE_BDD.SQL')
+	end if
+	li_codigo = FileWrite(li_archivo, ls_CADENA)
+	if li_codigo > 0 then
+		FileClose(li_archivo)
+	end if
+	run("txt.bat",minimized!)
+end if
+
+///////
+
+
+end subroutine
+

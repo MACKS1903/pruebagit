@@ -1,0 +1,80 @@
+﻿$PBExportHeader$f_mensajes_menu.srf
+global type f_mensajes_menu from function_object
+end type
+
+forward prototypes
+global subroutine f_mensajes_menu (integer codigo)
+end prototypes
+
+global subroutine f_mensajes_menu (integer codigo);choose case codigo
+// Errores del sistema
+case 1
+  	MessageBox("Información","Ya existe información en la Base de Datos" + sqlca.sqlerrtext, Information!)
+case 2
+  	MessageBox("Información","No es posible conectarse a la Base de Datos" + sqlca.sqlerrtext, Information!)
+case 3
+  	MessageBox("Información","No existe información en la Base de Datos" + sqlca.sqlerrtext, Information!)
+case 6
+  	MessageBox("Información ","No es posible actualizar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 7
+  	MessageBox("Información ","No es posible imprimir la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 8
+  	MessageBox("Información ","No es posible recuperar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 9
+  	MessageBox("Información ","No es posible ordenar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 10
+  	MessageBox("Información ","No es posible clasificar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 11
+  	MessageBox("Información ","No es posible realizar la transacción del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 12
+  	MessageBox("Información ","No es posible configurar la impresora" + sqlca.sqlerrtext, Information!)
+case 13
+  	MessageBox("Información ","No es posible insertar en el Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 14
+  	MessageBox("Información ","No es posible eliminar en el Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 15
+  	MessageBox("Información ","No es posible limpiar el Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 16
+  	MessageBox("Información ","No es posible exportar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 17
+  	MessageBox("Información ","No es posible obtener la información de la tabla " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 18
+  	MessageBox("Información ","No es posible actualizar la información de la tabla " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 19
+  	MessageBox("Información ","No es posible borrar la información de la tabla " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 20
+  	MessageBox("Información ","No es posible ingresar la información de la tabla " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 21
+  	MessageBox("Información ","No es posible procesar la función " + gs_mensaje, Information!)
+case 22
+  	MessageBox("Información ","No existe información con estas condiciones", Information!)
+case 23
+  	MessageBox("Información ","No se realizó correctamente el child del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 24
+  	MessageBox("Información ","No es posible actualizar la información" + sqlca.sqlerrtext, Information!)
+case 25
+  	MessageBox("Información","Usuario/Clave no son correctos", Information!)
+case 26
+  	MessageBox("Información ","Usted no sabe su clave de acceso...", Information!)
+case 27
+  	MessageBox("Información ","Existe un campo que tiene un valor nulo", Information!)
+case 28
+  	MessageBox("Información ","No existe la lectura de su archivo.ini", Information!)
+case 29
+	gi_mensaje = MessageBox("Información","Desea grabar los cambios realizados", Question!, YesNo!, 1)
+
+case 300
+  	MessageBox("Información ","El módulo " + gs_mensaje + " ya se está ejecutando", Information!)
+case 301
+  	MessageBox("Información ","El módulo " + gs_mensaje + " está abierto, por favor cierre antes de salir", Information!)
+case 302
+  	MessageBox("Información ","Para cambiar las claves de acceso debe cerrar el módulo de " + gs_mensaje , Information!)
+case 309
+	gi_mensaje = MessageBox("Información","Desea salir grabando la información?", Question!, YesNo!, 1)
+case 310
+	MessageBox("Información","El usuario: " + gs_mensaje + ", no tiene asignado permisos sobre las aplicaciónes", information!)
+case else  
+	MessageBox("Información","No existe código para el gs_mensaje No.: " + string(codigo) ,Information!,OkCancel!)
+end choose
+end subroutine
+

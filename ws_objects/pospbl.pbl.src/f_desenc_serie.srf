@@ -1,0 +1,44 @@
+﻿$PBExportHeader$f_desenc_serie.srf
+global type f_desenc_serie from function_object
+end type
+
+forward prototypes
+global function string f_desenc_serie (string as_num_serie)
+end prototypes
+
+global function string f_desenc_serie (string as_num_serie);Long ll_n, ll_long, ll_i, ll_num, ll_arr, ll_rand, ll_j
+String Arr[], ls_new_serie, ls_old_serie, ls_val
+Double ldb_long
+
+Arr = {'Y','C','I','D','3','N','E','F','6','H','B','9','T','J','4','G','2','M','O','Q',&
+		 '0','K','8','V','A','L','R','P','5','S','1','U','7','W','X','Z'}
+
+
+ll_long = len(as_num_serie)
+ls_old_serie = as_num_serie
+ls_new_serie = as_num_serie
+
+ls_val = Mid(ls_old_serie, ll_long)
+
+For ll_i = 1 to 36
+	if ls_val = arr[ll_i] then
+		ll_rand = ll_i		
+	end if
+Next
+
+For ll_i = 1 to ll_long - 1
+	ls_val = mid(ls_old_serie,ll_i,1)
+	For ll_j = 1 to 36
+		if ls_val = arr[ll_j] then
+			ll_arr = ll_j - ll_rand - ll_i
+			if ll_arr < 0 then ll_arr = 36				
+			ls_new_serie = left(ls_new_serie,ll_i - 1) + string(ll_arr) + Mid(ls_new_serie, ll_i + 1)		
+		end if
+	Next
+Next
+
+ls_new_serie = mid(ls_new_serie,1,len(ls_new_serie)-1)
+
+return ls_new_serie
+end function
+

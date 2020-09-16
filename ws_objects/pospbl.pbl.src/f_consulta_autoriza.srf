@@ -1,0 +1,49 @@
+﻿$PBExportHeader$f_consulta_autoriza.srf
+global type f_consulta_autoriza from function_object
+end type
+
+forward prototypes
+global function integer f_consulta_autoriza (string claveacceso)
+end prototypes
+
+global function integer f_consulta_autoriza (string claveacceso);string      dato;
+long       conexion_estatus;
+integer respuesta
+pbdom_builder    lector_xml;
+pbdom_document  documento_xml;
+pbdom_element  elemento_xml;
+pn_conexion    servicio;
+
+//crea un objeto soap para conectar al servicio web
+SoapConnection conexion_ws;
+conexion_ws = create SoapConnection;
+
+//configura un archivo de logs para ver errores de la conexion
+conexion_ws.setoptions( 'SoapLog="c:\\soaplog.txt"');
+
+//realiza la conexion al servicio web
+conexion_estatus = conexion_ws.createinstance( servicio,"pn_conexion");
+
+//Verifica que la conexion se alla realizado con exito
+if (conexion_estatus <> 0) then
+ MessageBox("Error", "Error al contactar el servicio web.", Exclamation!, OK!,1);
+ end if
+ 
+ respuesta=servicio.of_connectdb()
+ if respuesta >= 0 then
+	 MessageBox("Exito"," OKconectado")
+	 
+	 gnv_connect = servicio
+	 
+	
+	 
+else
+	 MessageBox("erro"," Noconectado")
+ end if	 
+ 
+
+
+//destroy servicio
+return 1
+end function
+

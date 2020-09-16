@@ -1,0 +1,12 @@
+﻿$PBExportHeader$p_pos_wsproxy1.srj
+$PBExportComments$Generated Web Service Proxy Project
+GeneratorID:{1B1DCEE2-E514-11D1-B30A-006008925BD4}GENBC00000000
+
+WSDLLOCATION:https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl	
+COMPONENT:0
+PACKAGE:4	WebService.RecepcionComprobantesOfflineService	WebService.comprobante	WebService.mensaje	WebService.respuestaSolicitud
+COMMENT:Web Service Proxy Generator
+DEPLOYMENT:pr.pbl	0	0
+PROJECT:p_pos_wsproxy1
+PREFIX:pr
+ASSEMBLY:1	1	pr.dll

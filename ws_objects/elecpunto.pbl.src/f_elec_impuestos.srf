@@ -1,0 +1,148 @@
+﻿$PBExportHeader$f_elec_impuestos.srf
+global type f_elec_impuestos from function_object
+end type
+
+forward prototypes
+global function integer f_elec_impuestos (long numero, string tipo, integer iva, integer caja, string com)
+end prototypes
+
+global function integer f_elec_impuestos (long numero, string tipo, integer iva, integer caja, string com);double ldb_baseo,ldb_base12,ldb_iva
+double ldb_compara=0
+integer i
+string ls_cod_iva,ls_nr_documento
+double ldb_tot_con_iva, ldb_tot_sin_iva,ldb_dsto_con_iva,ldb_dsto_sin_iva,ldb_total
+//ls_nr_documento=
+
+if iva=12 then
+	ls_cod_iva='2'  
+end if	
+if iva=14 then
+	ls_cod_iva='3'
+end if		
+	
+	SELECT PV_NOTA_VENTA.TOT_CON_IVA,   
+         PV_NOTA_VENTA.TOT_SIN_IVA,   
+         PV_NOTA_VENTA.DSTO_CON_IVA,   
+         PV_NOTA_VENTA.DSTO_SIN_IVA,   
+         PV_NOTA_VENTA.TOTAL  ,
+		PV_NOTA_VENTA.iva
+    INTO :ldb_tot_con_iva,   
+         :ldb_tot_sin_iva,   
+         :ldb_dsto_con_iva,   
+         :ldb_dsto_sin_iva,   
+         :ldb_total  ,
+		:ldb_iva	
+    FROM PV_NOTA_VENTA  
+   WHERE ( pV_NOTA_VENTA.NUMERO = :numero ) AND  
+         ( PV_NOTA_VENTA.TIPO_DOC = :tipo ) AND  
+         ( PV_NOTA_VENTA.NR_CAJA = :caja ) AND  
+         ( PV_NOTA_VENTA.COD_COMPANIA = :com )   ;
+			
+			if sqlca.sqlcode < 0 then
+						gs_mensaje = "TOMAR_DATOS_NOTA_VENTA_PARA:ELEC_PV"
+						f_mensajes(20)
+						Rollback;
+						return -1
+					end if
+					
+
+			
+			
+if isnull(ldb_tot_sin_iva) then ldb_tot_sin_iva=0
+if isnull(ldb_tot_con_iva) then ldb_tot_con_iva=0
+if isnull(ldb_dsto_con_iva) then ldb_dsto_con_iva=0
+if isnull(ldb_dsto_sin_iva) then ldb_dsto_sin_iva=0
+
+ldb_tot_sin_iva=abs(ldb_tot_sin_iva)
+ldb_dsto_sin_iva=abs(ldb_dsto_sin_iva)
+ldb_tot_con_iva=abs(ldb_tot_con_iva)
+ldb_dsto_con_iva=abs(ldb_dsto_con_iva)
+ldb_total=abs(ldb_total)
+ldb_iva= abs(ldb_iva)
+
+if isnull(ldb_total) then ldb_total=0
+if ldb_total=0 then
+	messagebox("At","Atención total fc=0 no seleccionada")
+	return -1
+	rollback;
+end if	
+	
+	
+	
+									 
+
+	ldb_baseo=ldb_tot_sin_iva - ldb_dsto_sin_iva
+	ldb_base12=ldb_tot_con_iva - ldb_dsto_con_iva
+	
+for i=1 to 2
+	if i=1 then
+		if ldb_base12 >0 then
+			  INSERT INTO ELEC_IMPUESTOS_PV
+         ( codigo,   
+           codigoporcentaje,   
+           base,   
+           valor,   
+           numero,
+			  tipo,
+			  caja)  
+  VALUES ( '2',   
+           :ls_cod_iva,   
+           :ldb_base12,   
+           :ldb_iva,   
+           :numero,
+			  :tipo,
+			  :caja)  ;
+			  
+			  if sqlca.sqlcode < 0 then
+						gs_mensaje = "elec_impuesto_iva"
+						f_mensajes(20)
+						Rollback;
+						return -1
+					end if
+
+		
+		
+		end if	
+   end if
+	
+	if i=2 then
+				if ldb_baseo >0 then
+			  INSERT INTO ELEC_IMPUESTOS_PV
+         ( codigo,   
+           codigoporcentaje,   
+           base,   
+           valor,   
+           numero,
+			  tipo,
+			  caja)  
+  VALUES ( '2',   
+           '0',   
+           :ldb_baseo,   
+           '0',   
+           :numero,
+			  :tipo,
+			  :caja)  ;
+			  
+			  if sqlca.sqlcode < 0 then
+						gs_mensaje = "elec_impuesto_siniva"
+						f_mensajes(20)
+						Rollback;
+						return -1
+					end if
+
+		
+		
+		end if	
+
+		
+	
+   end if
+next	
+
+commit;
+
+return 1
+
+
+end function
+

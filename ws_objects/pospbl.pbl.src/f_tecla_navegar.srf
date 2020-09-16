@@ -1,0 +1,46 @@
+﻿$PBExportHeader$f_tecla_navegar.srf
+$PBExportComments$Función de navegación  con teclas para una ventana
+global type f_tecla_navegar from function_object
+end type
+
+forward prototypes
+global subroutine f_tecla_navegar (datawindow adw_x, integer ai_sentido, datawindow adw_sentido)
+end prototypes
+
+global subroutine f_tecla_navegar (datawindow adw_x, integer ai_sentido, datawindow adw_sentido);// Función:			f_tecla_navegar()
+// Argumentos:		adw_x = control dw origen
+//						ai_sentido = sentido del movimiento
+//						adw_sentido = control dw al cual se mueve con las teclas izquierda y derecha
+// Retorno:			ninguno
+// Realizada por:	Victor Barba Proaño
+// Fecha:				20/03/1999
+// Version:			1.0
+// Descripción:		Esta función sirve para navegar sobre los registros de uno ó más los controles dw de una ventana
+// Infor. personal:	Algunas mejoras a ésta función estan en la versión 1.5
+//
+// Espacio para modificaciones y su funcionamiento, aqui abajo
+//
+
+long ll_fila,ll_n
+
+ll_n = adw_x.rowcount()
+CHOOSE CASE ai_sentido
+	CASE 8
+	   if adw_x.getrow() = 1 then 
+			ll_fila = 1
+		else
+			ll_fila = adw_x.getrow()  - 1 
+		end if
+	CASE 2
+	   if adw_x.getrow() = ll_n then 
+			ll_fila = ll_n
+		else
+			ll_fila = adw_x.getrow()  + 1 
+		end if
+	CASE 4,6
+		// salto del foco actual   a un  control dw
+		ll_fila = adw_sentido.getrow()
+END CHOOSE
+adw_x = adw_sentido;adw_x.setfocus();adw_x.selectrow(0,false); adw_x.selectrow(ll_fila,true);
+end subroutine
+

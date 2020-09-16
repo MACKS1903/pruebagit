@@ -1,0 +1,98 @@
+﻿$PBExportHeader$f_inserta_inv_movimiento.srf
+global type f_inserta_inv_movimiento from function_object
+end type
+
+forward prototypes
+global function integer f_inserta_inv_movimiento (string tipo, datetime fecha, integer usuario, long cod_articulo, integer cod_unidad, integer origen, integer destino, double transfiere)
+end prototypes
+
+global function integer f_inserta_inv_movimiento (string tipo, datetime fecha, integer usuario, long cod_articulo, integer cod_unidad, integer origen, integer destino, double transfiere);long ll_movi,ll_nr_documento
+string ls_msg
+string ls_usuario,ls_observacion
+double monto,costo
+integer i,bodega
+
+ls_usuario=string(usuario)
+ll_movi = f_secuencial ( 'MOVIMIENTO') 
+
+//sacar monto,costo
+select  inv_articulo.costo_promedio
+into :costo
+from   inv_articulo
+where inv_articulo.cod_articulo =:cod_articulo ;
+
+monto=round(costo * transfiere,4)
+
+IF ll_movi < 0 THEN 	RETURN -1
+
+for i=1 to 2 
+	
+if i=1 then
+	tipo='ET'
+	bodega=origen
+else
+	tipo='IT'
+	bodega=destino
+end if	
+if tipo='ET' then
+	ls_observacion='Egreso por Tranferencia PV'
+else
+	ls_observacion='Ingreso por Tranferencia PV'
+end if	
+		
+	INSERT INTO inv_movimiento  
+   (tipo_movimiento,nr_movimiento,cod_compania,f_movimiento, usuario,observacion)
+	VALUES (:tipo,:ll_movi,:gs_cod_compania,:fecha,:ls_usuario,:ls_observacion); //getdate()
+	if sqlca.sqlcode < 0 then
+		ls_msg = sqlca.sqlerrtext
+		rollback;
+		messagebox("Información","No puedo crear el INV_Movimiento de transferencia 1~r~n"+ls_msg,information!)
+		return -1
+	end if
+	
+	//////////
+	INSERT INTO inv_articulo_movimiento  
+       (tipo_movimiento,nr_movimiento,cod_articulo, cod_bodega, secuencial, tipo, cantidad, monto, p_unit,cantidad_devuelta, costo_promedio, observacion,
+		     lote, cod_unidad, conversion, cant_presentacion, paga_iva)  
+	VALUES (:tipo,:ll_movi,:cod_articulo,:bodega, 1,'N',:transfiere,:monto,:costo,0,:costo,:ls_observacion,null,	:cod_unidad,1,	:transfiere, 'S')  ;
+		if sqlca.sqlcode < 0 then
+		ls_msg = sqlca.sqlerrtext
+		rollback;
+		messagebox("Información","No puedo crear el INV_articulo_Movimiento de transferencia 1~r~n"+ls_msg,information!)
+		return -1
+	end if
+	
+  if tipo='ET'	 then
+   UPDATE inv_articulos_bodega  
+       SET stock_disponible = stock_disponible - :transfiere
+   WHERE inv_articulos_bodega.cod_bodega = :origen AND  
+         inv_articulos_bodega.cod_articulo = :cod_articulo   ; 
+	if sqlca.sqlcode < 0 then
+		gs_mensaje="inv_articulos_bodega"
+		f_mensajes(18)
+		rollback;
+		return -1
+	end if
+else
+	  UPDATE inv_articulos_bodega  
+       SET stock_disponible = stock_disponible + :transfiere
+   WHERE inv_articulos_bodega.cod_bodega = :destino AND  
+         inv_articulos_bodega.cod_articulo = :cod_articulo   ; 
+	if sqlca.sqlcode < 0 then
+		gs_mensaje="inv_articulos_bodega +"
+		f_mensajes(18)
+		rollback;
+		return -1
+	end if
+	
+	
+end if
+
+
+next
+
+return 1
+
+
+end function
+

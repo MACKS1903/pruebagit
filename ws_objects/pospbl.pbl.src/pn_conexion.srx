@@ -1,0 +1,26 @@
+﻿$PBExportHeader$pn_conexion.srx
+$PBExportComments$Proxy imported from Web service using Web Service Proxy Generator.
+global type Pn_conexion from NonVisualObject
+end type
+
+type variables
+Protected:
+        string pbws_ver = ".NET"
+        string cs_namespace = "WebService"
+        string cs_class = "n_conexion"
+        string cs_assembly = "n_conexion.dll"
+        string pb_prefix = "P"
+        string pb_usenvo = "YES"
+        string pb_target = "C:\PUNTO12\paralosbancos"
+end variables
+
+forward prototypes
+public:
+function int of_getconnectioninfo( ref string as_dbms, ref string as_database, ref string as_userid, ref string as_dbpass, ref string as_logid, ref string as_logpass, ref string as_server, ref string as_dbparm, ref string as_lock, ref string as_autocommit) alias for "<method name='of_getconnectioninfo' ns='WebService' pbname='of_getconnectioninfo'><return name='returnvalue' type='System.Int16' isRef='False' ArrayDim='0' IsNullableType='False' /><param name='as_dbms' type='System.String' pos='0' dir='inout' ArrayDim='0' IsNullableType='False'/><param name='as_database' type='System.String' pos='1' dir='inout' ArrayDim='0' IsNullableType='False'/><param name='as_userid' type='System.String' pos='2' dir='inout' ArrayDim='0' IsNullableType='False'/><param name='as_dbpass' type='System.String' pos='3' dir='inout' ArrayDim='0' IsNullableType='False'/><param name='as_logid' type='System.String' pos='4' dir='inout' ArrayDim='0' IsNullableType='False'/><param name='as_logpass' type='System.String' pos='5' dir='inout' ArrayDim='0' IsNullableType='False'/><param name='as_server' type='System.String' pos='6' dir='inout' ArrayDim='0' IsNullableType='False'/><param name='as_dbparm' type='System.String' pos='7' dir='inout' ArrayDim='0' IsNullableType='False'/><param name='as_lock' type='System.String' pos='8' dir='inout' ArrayDim='0' IsNullableType='False'/><param name='as_autocommit' type='System.String' pos='9' dir='inout' ArrayDim='0' IsNullableType='False'/></method>"
+function int of_disconnectdb() alias for "<method name='of_disconnectdb' ns='WebService' pbname='of_disconnectdb'><return name='returnvalue' type='System.Int16' isRef='False' ArrayDim='0' IsNullableType='False' /></method>"
+function int of_connectdb() alias for "<method name='of_connectdb' ns='WebService' pbname='of_connectdb'><return name='returnvalue' type='System.Int16' isRef='False' ArrayDim='0' IsNullableType='False' /></method>"
+subroutine CancelAsync (  any userState) alias for "<method name='CancelAsync' ns='WebService' pbname='CancelAsync'><param name='userState' type='System.Object' pos='0' dir='in' ArrayDim='0' IsNullableType='False'/></method>"
+subroutine PBAddCookie(any cookie) alias for "<method name='PBAddCookie' ns='System.Runtime.Remoting.Messaging'  IsCookieFunction='True' pbname='PBAddCookie'><return name='returnvalue' type='System.Void' isRef='false' ArrayDim='0' IsNullableType='false' /><param name='cookie' type='any' pos='0' dir='in' ArrayDim='0' IsNullableType='False'/></method>"
+function any PBGetCookies(string Uri) alias for "<method name='PBGetCookies' ns='System.Runtime.Remoting.Messaging'  IsCookieFunction='True' pbname='PBGetCookies'><return name='returnvalue' type='System.Object' isRef='false' ArrayDim='0' IsNullableType='false' /><param name='cookie' type='System.String' pos='0' dir='in' ArrayDim='0' IsNullableType='False'/></method>"
+end prototypes
+

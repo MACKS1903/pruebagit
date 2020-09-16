@@ -1,0 +1,41 @@
+﻿$PBExportHeader$f_transferencia.srf
+global type f_transferencia from function_object
+end type
+
+forward prototypes
+global function integer f_transferencia (integer usuario, long cod_articulo, integer cod_unidad, integer origen, integer destino, double transfiere)
+end prototypes
+
+global function integer f_transferencia (integer usuario, long cod_articulo, integer cod_unidad, integer origen, integer destino, double transfiere);//verifico stock
+double ldb_stock
+datetime ldt_fecha
+select stock_disponible
+into :ldb_stock
+from inv_articulos_bodega
+where inv_articulos_bodega.cod_articulo=:cod_articulo
+and   inv_articulos_bodega.cod_bodega=:origen ;
+
+if ldb_stock >=transfiere then  //sigue el proceso
+//
+ldt_fecha=datetime(date(today()),now())
+if f_inserta_inv_movimiento('IT',ldt_fecha,usuario,cod_articulo,cod_unidad,origen,destino,transfiere) < 0 then
+	messagebox("Atención" ,"Tranferencia No Generada")
+	rollback;
+	return -1
+else
+	commit;
+	return 1
+end if	
+	
+	
+
+	
+
+//
+else
+	messagebox("Atención" ,"no hay Stock Suficiente")
+	return -1
+//no hay stock_sufiente
+end if
+end function
+

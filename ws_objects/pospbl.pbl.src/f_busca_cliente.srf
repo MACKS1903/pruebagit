@@ -1,0 +1,20 @@
+﻿$PBExportHeader$f_busca_cliente.srf
+global type f_busca_cliente from function_object
+end type
+
+forward prototypes
+global function long f_busca_cliente (integer caja, long numero)
+end prototypes
+
+global function long f_busca_cliente (integer caja, long numero);long  lcod_cliente
+select pv_nota_venta.cod_cliente
+into :lcod_cliente
+from pv_nota_venta
+where pv_nota_venta.cod_compania='01'
+and   pv_nota_venta.nr_caja=:caja
+and   pv_nota_venta.numero=:numero
+and   pv_nota_venta.tipo_doc='EV' ;
+
+return lcod_cliente
+end function
+

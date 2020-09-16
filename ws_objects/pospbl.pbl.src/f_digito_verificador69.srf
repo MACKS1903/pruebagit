@@ -1,0 +1,144 @@
+﻿$PBExportHeader$f_digito_verificador69.srf
+global type f_digito_verificador69 from function_object
+end type
+
+forward prototypes
+global function integer f_digito_verificador69 (string cedula, string tipo)
+end prototypes
+
+global function integer f_digito_verificador69 (string cedula, string tipo);string ls_tipo
+string ls_cedula,ls_par,ls_impar
+integer li_m9,li_acum9=0
+integer li_digito,li_cuenta,li_pares,i,li_pos=0,li_impar,li_par,li_sumaimpar=0,li_sumat=0,li_ver,li_di9,li_di6,li_di,li_prov
+integer li_tercer,li_c9
+string ls_ver9,ls_ver6
+cedula=trim(cedula)
+li_cuenta=len(cedula)
+li_di9=integer(mid(cedula,10,1))
+li_di6=integer(mid(cedula,9,1))
+li_tercer=integer(mid(cedula,3,1))
+ls_ver9='432765432'
+ls_ver6='32765432'
+
+if li_cuenta<> 13 then
+	messagebox("","No corresponde e número de digitos"	)
+	return -1
+end if	
+
+if li_di9=9 then //sociedades
+if integer(mid(cedula,11,1))<>0 then
+	messagebox("","No corresponde a 001"	)
+	return -1
+end if	
+
+if integer(mid(cedula,12,1))<>0 then
+	messagebox("","No corresponde a 001"	)
+	return -1
+end if	
+
+if integer(mid(cedula,13,1))<>1 then
+	messagebox("","No corresponde a 001"	)
+	return -1
+end if	
+end if
+
+if li_di6=6 then //publicos
+if integer(mid(cedula,10,1))<>0 then
+	//messagebox("","No corresponde a 0001"	)
+//	return -1
+end if	
+
+if integer(mid(cedula,11,1))<>0 then
+	messagebox("","No corresponde a 0001"	)
+	return -1
+end if	
+
+if integer(mid(cedula,12,1))<>0 then
+	messagebox("","No corresponde a 0001"	)
+	return -1
+end if	
+
+if integer(mid(cedula,13,1))<>1 then
+	messagebox("","No corresponde a 0001"	)
+	return -1
+end if	
+
+
+end if
+
+
+
+
+
+	
+
+	
+
+li_prov=integer(mid(cedula,1,2))
+if li_prov <=0  or li_prov >24 then
+	messagebox("","No corresponde a una provincia válida"	)
+		return -1
+	end if		
+
+/////////
+if li_tercer=9 then
+for i=1 to 9
+	li_par=integer(mid(cedula,i,1))
+	li_c9=integer(mid(ls_ver9,i,1))
+   li_m9= li_par * li_c9	
+	li_acum9=li_acum9 + li_m9
+next
+li_ver=mod(li_acum9,11)
+
+if li_ver > 0 then
+li_digito= 11 - li_ver
+else
+li_digito= 0
+end if
+
+end if //de 9
+
+if li_tercer=6 then  //6
+for i=1 to 8
+	li_par=integer(mid(cedula,i,1))
+	li_c9=integer(mid(ls_ver6,i,1))
+   li_m9= li_par * li_c9	
+	li_acum9=li_acum9 + li_m9
+next
+li_ver=mod(li_acum9,11)
+
+if li_ver > 0 then
+li_digito= 11 - li_ver
+else
+li_digito= 0
+end if
+
+end if //de 6
+
+	
+	if li_tercer = 6 then
+		
+  	if li_digito= li_di6 then		
+		return 1
+	else
+		return -1
+	end if	
+end if
+	
+
+		
+	if li_tercer = 9 then
+		
+  	if li_digito= li_di9 then		
+		return 1
+	else
+		return -1
+	end if	
+end if
+
+
+RETURN 0
+
+
+end function
+

@@ -1,0 +1,82 @@
+﻿$PBExportHeader$f_claveacceso.srf
+global type f_claveacceso from function_object
+end type
+
+forward prototypes
+global function string f_claveacceso (date fecha, string tipocomprob, string ruc, string ambiente, string serie, string secuencial, string codigo, string emision)
+end prototypes
+
+global function string f_claveacceso (date fecha, string tipocomprob, string ruc, string ambiente, string serie, string secuencial, string codigo, string emision);integer i,j=1,li_digito,li_mod,li_res,li_multiplo
+string ls_clave48,ls_clave23
+string ls_fecha,ls_tipo
+long ldb_acum,ll_seq
+double ldb_acumtot=0
+
+string arreglo='765432765432765432765432765432765432765432765432'
+	
+
+
+ls_fecha=string(fecha)
+ls_fecha=mid(ls_fecha,1,2)+mid(ls_fecha,4,2)+mid(ls_fecha,7,4)
+
+//emisión 1 normal
+//        2 indisponibilidad	
+		
+		
+if emision='1'  then
+ls_clave48=ls_fecha+tipocomprob+ruc+ambiente+serie+secuencial+codigo+emision
+else
+	//va traer la clave de contingencia
+	ll_seq=f_secuencial('CLAVE')
+	
+	select ELEC_CLAVECONTINGENCIA.CLAVE
+	INTO :ls_clave23
+	from ELEC_CLAVECONTINGENCIA
+	where ELEC_CLAVECONTINGENCIA.seqno=:ll_seq ;
+	
+	if isnull(ls_clave23) or ls_clave23='' then
+		//messagebox("Atención","Clave de contingencia no encontrada")
+		
+	end if	
+	
+	ls_clave48=ls_fecha+tipocomprob+ls_clave23+emision
+	//
+end if	
+
+
+for i=48 to 1 step -1
+	li_digito=integer(mid(ls_clave48,i,1))
+	li_multiplo=integer(mid(arreglo,i,1))
+	ldb_acum=li_digito *  li_multiplo
+	ldb_acumtot=ldb_acumtot+ldb_acum
+next
+
+
+
+li_res=mod(ldb_acumtot,11)
+
+if li_res=0  then
+	li_mod=0
+else
+	if li_res=1 then
+		li_mod=1
+	else	
+	li_mod= 11 - li_res
+end if	
+end if
+
+ls_clave48=ls_clave48+string(li_mod)
+
+if tipocomprob='01' or tipocomprob='07' then  ls_tipo='FC'   //07 retencion 
+if tipocomprob='04' then  ls_tipo='NC'
+
+
+	
+
+	
+
+	
+
+return ls_clave48
+end function
+

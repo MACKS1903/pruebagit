@@ -1,0 +1,53 @@
+﻿$PBExportHeader$f_inserta_tabla.srf
+global type f_inserta_tabla from function_object
+end type
+
+forward prototypes
+global function boolean f_inserta_tabla (string as_num_serie, ref long al_licencia, ref long al_dia_valido, ref long al_tipo_licencia, ref date adt_fecha_cd)
+end prototypes
+
+global function boolean f_inserta_tabla (string as_num_serie, ref long al_licencia, ref long al_dia_valido, ref long al_tipo_licencia, ref date adt_fecha_cd);Date ldt_fecha
+Long ll_num_lic, ll_val_dias, ll_long, ll_i, ll_num_serie, ll_npos,ll_ano
+long ll_mes, ll_posicion, ll_dia,ll_valor
+String ls_val
+
+ll_long = len(as_num_serie)
+ll_posicion = 2
+
+// Secuencial
+ll_npos = long(Mid(as_num_serie, ll_posicion,1))
+ll_posicion = ll_posicion + 1
+ll_num_serie = long(Mid(as_num_serie, ll_posicion,ll_npos))
+
+// Fecha
+ll_posicion = ll_posicion + ll_npos
+ll_npos = long(Mid(as_num_serie, ll_posicion,1))
+ll_posicion = ll_posicion + 1
+ll_valor = long(Mid(as_num_serie, ll_posicion,ll_npos))
+
+ll_ano = truncate(ll_valor/360,0)
+ll_mes = truncate((ll_valor - (ll_ano * 360)) / 30 ,0)
+ll_dia = ll_valor - (ll_ano * 360) - (ll_mes * 30)
+
+// Usuarios
+ll_posicion = ll_posicion + ll_npos
+ll_npos = long(Mid(as_num_serie, ll_posicion,1))
+ll_posicion = ll_posicion + 1
+ll_num_lic = long(Mid(as_num_serie, ll_posicion,ll_npos))
+
+// Días válidos
+ll_posicion = ll_posicion + ll_npos + 2
+ll_npos = long(Mid(as_num_serie, ll_posicion,1))
+ll_posicion = ll_posicion + 1
+ll_val_dias = long(Mid(as_num_serie, ll_posicion,ll_npos))
+ldt_fecha = date(string(ll_ano + 2000)+'/'+string(ll_mes)+'/'+string(ll_dia))
+adt_fecha_cd = ldt_fecha 
+al_licencia = ll_num_lic
+al_dia_valido = ll_val_dias
+al_tipo_licencia = long(Mid(as_num_serie, 1,1))
+
+Return true
+
+
+end function
+

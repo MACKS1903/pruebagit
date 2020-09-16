@@ -1,0 +1,51 @@
+﻿$PBExportHeader$f_secuencial.srf
+$PBExportComments$funcion que obtiene el secuencial de documentos
+global type f_secuencial from function_object
+end type
+
+forward prototypes
+global function long f_secuencial (string tabla)
+end prototypes
+
+global function long f_secuencial (string tabla);/*************************************************************/
+/* Esta funcion retorna el secuencial que toca de cualquier  */
+/* tabla, recuperando de la tabla SEQNO.                     */
+/*************************************************************/
+
+LONG secuencial, li_i
+
+	SELECT SEQNO.NUMSEQ
+  	INTO :secuencial 
+  	FROM SEQNO with(holdlock)
+ 	WHERE SEQNO.TABLA = :tabla;
+	 li_i=1
+DO WHILE SQLCA.SqlDBCODE = 1205
+	FOR li_i = 1 to 200000
+	Next
+	SELECT SEQNO.NUMSEQ
+  	INTO :secuencial 
+	FROM SEQNO with(holdlock)
+ 	WHERE SEQNO.TABLA = :tabla; 	
+LOOP
+
+IF SQLCA.SqlnRows = 0 then
+	gs_mensaje="seqno"
+	f_mensajes(17)
+	return -1
+	rollback;
+END IF
+
+UPDATE SEQNO
+   SET NUMSEQ =NUMSEQ + 1  
+ WHERE SEQNO.TABLA = :TABLA;
+
+IF SQLCA.SqlCode < 0 then
+	gs_mensaje="seqno"
+	f_mensajes(18)
+	rollback;
+	return -1	
+END IF
+
+return secuencial
+end function
+

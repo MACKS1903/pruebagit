@@ -1,0 +1,48 @@
+﻿$PBExportHeader$f_db_error.srf
+$PBExportComments$Desplega un mensaje dependiendo del error botado por Oracle
+global type f_db_error from function_object
+end type
+
+forward prototypes
+global subroutine f_db_error (ref datawindow dw, string titulo, long dberror, string dberrtexto, long fila)
+end prototypes
+
+global subroutine f_db_error (ref datawindow dw, string titulo, long dberror, string dberrtexto, long fila);/******************************************************************/
+/*  Este Script desplega un mensaje mas amigable para el usuario  */
+/*  dependiendo del error "capturado", que es retornado por el    */
+/*  manejador de  base de datos .                                 */
+/******************************************************************/
+
+string mensaje
+dwbuffer buff
+
+if len (titulo) < 2 then
+   titulo = "ERROR"
+end if
+
+Choose Case DbError
+	case -1 
+		mensaje = "No recupero ningún registro.~r~n" + SQLCA.SqlErrText
+	case 1 
+		mensaje = "El codigo ya existe .~r~n Registro no Procesado"	
+	case 233
+		mensaje = "Los campos no deben ser nulos. ~r~n Ingrese datos en todos los campos necesarios"
+	case 547 
+		mensaje = "El registro se encuentra relacionado con la caja.~r~n Registro no Procesado"			
+	case 1438
+		mensaje = "La longitud del campo es demasiado grande "
+	case 1400 
+		mensaje = "El codigo no puede ser nulo"
+	case 2601
+		mensaje = "El código de la cuenta ya existe."
+	case 2627
+		mensaje = "Existe un valor o campo repetido."		
+   case else
+		mensaje = dberrtexto
+end choose
+
+//mensaje = mensaje + "~r~n Fila: " + string ( fila )
+messagebox (titulo, mensaje)
+
+end subroutine
+

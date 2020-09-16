@@ -1,0 +1,108 @@
+﻿$PBExportHeader$f_elec_impuestos_pv.srf
+global type f_elec_impuestos_pv from function_object
+end type
+
+forward prototypes
+global function integer f_elec_impuestos_pv (long numero, string tipo, integer iva, integer caja, double tot_con_iva, double tot_sin_iva, double dsto_con_iva, double dsto_sin_iva, double ldb_iva)
+end prototypes
+
+global function integer f_elec_impuestos_pv (long numero, string tipo, integer iva, integer caja, double tot_con_iva, double tot_sin_iva, double dsto_con_iva, double dsto_sin_iva, double ldb_iva);double ldb_baseo,ldb_base12
+integer i
+string ls_cod_iva,ls_nr_documento
+
+if iva=12 then
+	ls_cod_iva='2'  
+end if	
+if iva=14 then
+	ls_cod_iva='3'
+end if		
+	
+			
+			
+if isnull(tot_sin_iva) then tot_sin_iva=0
+if isnull(tot_con_iva) then tot_con_iva=0
+if isnull(dsto_con_iva) then dsto_con_iva=0
+if isnull(dsto_sin_iva) then dsto_sin_iva=0
+
+tot_sin_iva=abs(tot_sin_iva)
+dsto_sin_iva=abs(dsto_sin_iva)
+tot_con_iva=abs(tot_con_iva)
+dsto_con_iva=abs(dsto_con_iva)
+ldb_iva= abs(ldb_iva)
+		 
+
+	ldb_baseo=tot_sin_iva - dsto_sin_iva
+	ldb_base12=tot_con_iva - dsto_con_iva
+	
+for i=1 to 2
+	if i=1 then
+		if ldb_base12 >0 then
+			  INSERT INTO ELEC_IMPUESTOS_PV
+         ( codigo,   
+           codigoporcentaje,   
+           base,   
+           valor,   
+           numero,
+			  tipo,
+			  caja)  
+  VALUES ( '2',   
+           :ls_cod_iva,   
+           :ldb_base12,   
+           :ldb_iva,   
+           :numero,
+			  :tipo,
+			  :caja)  ;
+			  
+			  if sqlca.sqlcode < 0 then
+						gs_mensaje = "elec_impuesto_iva"
+						f_mensajes(20)
+						Rollback;
+						return -1
+					end if
+
+		
+		
+		end if	
+   end if
+	
+	if i=2 then
+				if ldb_baseo >0 then
+			  INSERT INTO ELEC_IMPUESTOS_PV
+         ( codigo,   
+           codigoporcentaje,   
+           base,   
+           valor,   
+           numero,
+			  tipo,
+			  caja)  
+  VALUES ( '2',   
+           '0',   
+           :ldb_baseo,   
+           '0',   
+           :numero,
+			  :tipo,
+			  :caja)  ;
+			  
+			  if sqlca.sqlcode < 0 then
+						gs_mensaje = "elec_impuesto_siniva"
+						f_mensajes(20)
+						Rollback;
+						return -1
+					end if
+
+		
+		
+		end if	
+
+		
+	
+   end if
+next	
+
+commit;
+
+return 1
+
+
+end function
+

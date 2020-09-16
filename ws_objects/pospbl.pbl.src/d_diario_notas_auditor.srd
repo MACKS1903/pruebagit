@@ -1,0 +1,118 @@
+﻿$PBExportHeader$d_diario_notas_auditor.srd
+$PBExportComments$Diario de Notas de venta
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=432 color="536870912" )
+summary(height=88 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912" )
+table(column=(type=char(2) update=yes updatewhereclause=yes name=cod_compania dbname="cod_compania" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=numero dbname="numero" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nr_caja dbname="nr_caja" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=cod_cliente dbname="cod_cliente" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=c_i_o_ruc dbname="c_i_o_ruc" )
+ column=(type=decimal(0) updatewhereclause=yes name=nr_devol dbname="nr_devol" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=desc_adc dbname="desc_adc" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=tot_con_iva dbname="tot_con_iva" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=tot_sin_iva dbname="tot_sin_iva" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=iva dbname="iva" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dsto_con_iva dbname="dsto_con_iva" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dsto_sin_iva dbname="dsto_sin_iva" )
+ column=(type=decimal(2) updatewhereclause=yes name=total dbname="total" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_emision dbname="fecha_emision" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_anul dbname="fecha_anul" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_cancel dbname="fecha_cancel" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_proceso dbname="fecha_proceso" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=cod_sistema dbname="cod_sistema" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nr_detalles dbname="nr_detalles" )
+ column=(type=char(200) update=yes updatewhereclause=yes name=nomb_cliente dbname="nomb_cliente" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=estado dbname="estado" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cupo_credito dbname="cupo_credito" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=saldo_cupo dbname="saldo_cupo" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=impreso dbname="impreso" )
+ column=(type=char(200) updatewhereclause=yes name=nom_funcionario dbname="nom_funcionario" )
+ retrieve="  SELECT pv_nota_venta.cod_compania,   
+         pv_nota_venta.numero,   
+         pv_nota_venta.nr_caja,   
+         pv_nota_venta.cod_cliente,   
+         pv_nota_venta.c_i_o_ruc,   
+         pv_nota_venta.nr_devol,   
+         pv_nota_venta.desc_adc,   
+         pv_nota_venta.tot_con_iva,   
+         pv_nota_venta.tot_sin_iva,   
+         pv_nota_venta.iva,   
+         pv_nota_venta.dsto_con_iva,   
+         pv_nota_venta.dsto_sin_iva,   
+         pv_nota_venta.total,   
+         pv_nota_venta.fecha_emision,   
+         pv_nota_venta.fecha_anul,   
+         pv_nota_venta.fecha_cancel,   
+         pv_nota_venta.fecha_proceso,   
+         pv_nota_venta.cod_sistema,   
+         pv_nota_venta.nr_detalles,   
+         pv_nota_venta.nomb_cliente,   
+         pv_nota_venta.estado,   
+         pv_nota_venta.cupo_credito,   
+         pv_nota_venta.saldo_cupo,   
+         pv_nota_venta.impreso,   
+         funcionario.nom_funcionario  
+    FROM pv_nota_venta,   
+         funcionario  
+   WHERE ( funcionario.cod_funcionario = pv_nota_venta.cod_vendedor ) and  
+         ( pv_nota_venta.cod_compania = :gs_comp ) AND  
+         ( pv_nota_venta.nr_caja = :caja )   
+" arguments=(("gs_comp", string),("caja", number)) )
+line(band=header x1="9" y1="420" x2="201" y2="420"  name=l_1 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="CAJA:" border="0" color="0" x="32" y="104" height="44" width="165"  name=nr_caja_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=3 alignment="1" tabsequence=30 border="0" color="0" x="210" y="104" height="60" width="210" format="00"  name=nr_caja edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="DESDE:" border="0" color="0" x="1047" y="96" height="44" width="219"  name=t_2  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="0" expression="min(   fecha_emision for all )"border="0" color="0" x="1280" y="96" height="60" width="334" format="dd/mm/yyyy       "  name=compute_3  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="HASTA:" border="0" color="0" x="1746" y="96" height="44" width="215"  name=t_3  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="0" expression="max(  fecha_emision  for all )"border="0" color="0" x="1975" y="96" height="60" width="334" format="dd/mm/yyyy"  name=compute_4  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="NUMERO" border="0" color="0" x="9" y="360" height="44" width="201"  name=numero_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="224" y1="420" x2="462" y2="420"  name=l_2 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="FECHA" border="0" color="0" x="224" y="360" height="44" width="261"  name=fecha_emision_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="2395" y1="420" x2="2720" y2="420"  name=l_7 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=header x1="3049" y1="420" x2="3360" y2="420"  name=l_8 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=header x1="2743" y1="420" x2="3022" y2="420"  name=l_16 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="1" text="TOT. CON IVA" border="0" color="0" x="2089" y="360" height="44" width="293"  name=tot_con_iva_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="DSTO. CON IVA" border="0" color="0" x="2395" y="360" height="44" width="320"  name=dsto_con_iva_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="IVA" border="0" color="0" x="2729" y="360" height="44" width="288"  name=iva_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="2094" y1="420" x2="2377" y2="420"  name=l_6 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="1" text="DSTO. SIN IVA" border="0" color="0" x="1760" y="360" height="44" width="315"  name=dsto_sin_iva_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="1760" y1="420" x2="2075" y2="420"  name=l_5 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="1" text="TOT. SIN IVA" border="0" color="0" x="1449" y="360" height="44" width="297"  name=tot_sin_iva_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="498" y1="424" x2="1097" y2="424"  name=l_3 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=header x1="1454" y1="424" x2="1742" y2="424"  name=l_4 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="CLIENTE" border="0" color="0" x="498" y="360" height="44" width="594"  name=cod_cliente_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="DIARIO DE NOTAS DE VENTA" border="0" color="0" x="864" y="20" height="44" width="1554"  name=t_1  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="TOTAL" border="0" color="0" x="3031" y="360" height="44" width="329"  name=monto_t  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Pag.: '+page() +' de ' +pageCount()"border="0" color="0" x="2821" y="244" height="60" width="539" format="[general]"  name=compute_2  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Fecha de Impresión: '+string(today(),'dd/mm/yyyy')"border="0" color="0" x="2263" y="168" height="60" width="1097" format="[general]"  name=compute_1  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="0" x="14" y="4" height="52" width="197" format="0000000"  name=numero edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="2" tabsequence=32766 border="0" color="0" x="224" y="4" height="52" width="261" format="DD/MM/YYYY"  name=fecha_emision edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="0" x="2386" y="4" height="52" width="329" format="#,##0.00"  name=dsto_con_iva edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="0" x="1755" y="4" height="52" width="306" format="#,##0.00"  name=dsto_sin_iva edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="0" x="2080" y="4" height="48" width="288" format="#,##0.00"  name=tot_con_iva edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="0" x="3374" y="4" height="52" width="41" format="[general]"  name=estado edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="0" x="2729" y="4" height="52" width="279" format="#,##0.00"  name=iva edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="0" x="3026" y="4" height="48" width="329" format="#,##0.00"  name=total edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="0" x="1454" y="4" height="48" width="288" format="#,##0.00"  name=tot_sin_iva edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="if( cod_cliente =0,'CASH', nomb_cliente )"border="0" color="0" x="498" y="4" height="52" width="594" format="[general]"  name=compute_5  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1440" y1="4" x2="1751" y2="4"  name=l_10 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="1774" y1="4" x2="2057" y2="4"  name=l_11 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="2080" y1="4" x2="2368" y2="4"  name=l_12 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(tot_sin_iva for all)"border="0" color="0" x="1440" y="20" height="60" width="302" format="#,##0.00"  name=compute_6  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(dsto_sin_iva for all)"border="0" color="0" x="1755" y="20" height="60" width="302" format="#,##0.00"  name=compute_7  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(tot_con_iva for all)"border="0" color="0" x="2075" y="20" height="60" width="293" format="#,##0.00"  name=compute_8  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=summary x1="2391" y1="4" x2="2702" y2="4"  name=l_13 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="3035" y1="4" x2="3351" y2="4"  name=l_14 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="2725" y1="4" x2="3003" y2="4"  name=l_17 pen.style="2" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(dsto_con_iva for all)"border="0" color="0" x="2395" y="20" height="60" width="315" format="#,##0.00"  name=compute_9  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression=" sum(total for all) "border="0" color="0" x="3022" y="20" height="60" width="320" format="#,##0.00"  name=compute_11  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(iva for all)"border="0" color="0" x="2729" y="20" height="60" width="270" format="#,##0.00"  name=compute_10  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="1106" y1="424" x2="1435" y2="424"  name=l_9 pen.style="2" pen.width="5" pen.color="128"  background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="USUARIO" border="0" color="128" x="1106" y="360" height="44" width="329"  name=t_4  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="2" tabsequence=32766 border="0" color="128" x="1106" y="4" height="52" width="329" format="[general]"  name=nom_funcionario edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

@@ -1,0 +1,37 @@
+﻿$PBExportHeader$f_num_registro_desenc.srf
+global type f_num_registro_desenc from function_object
+end type
+
+forward prototypes
+global function string f_num_registro_desenc (string as_num_serie)
+end prototypes
+
+global function string f_num_registro_desenc (string as_num_serie);Long ll_long, ll_i,ll_par, ll_impar, ll_j, ll_asc, ll_desc
+String arr[], ls_val
+
+Arr = {'L','Y','C','H','B','E','F','6','9','T','X','Z','M','O','Q',&
+		 '0','J','D','3','2','K','8','V','A','L','R','4','G','I','N','P','5','S','1','U','7','W','A'}
+
+ll_long = len(as_num_serie)
+ll_asc = 1
+ll_desc = round(ll_long/2,0) + 1
+
+For ll_i = 1 to ll_long - 1
+	ls_val = mid(as_num_serie,ll_i,1)
+	For ll_j = 1 to 36
+		if ls_val = arr[ll_j] then
+			//Par
+			if mod(ll_i,2) = 0 then
+				ll_par = ll_par + ((long(mid(as_num_serie,ll_i,1)) * ll_asc)*3)
+				
+				ll_asc = ll_asc + 1
+			else
+				ll_impar = ll_impar + ((long(mid(as_num_serie,ll_i,1)) * ll_desc)*7)
+				ll_desc = ll_desc - 1
+			end if
+		end if
+	Next
+Next
+return string(ll_par) + string(ll_impar)
+end function
+

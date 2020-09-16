@@ -1,0 +1,30 @@
+﻿$PBExportHeader$f_num_registro.srf
+global type f_num_registro from function_object
+end type
+
+forward prototypes
+global function string f_num_registro (string as_num_serie)
+end prototypes
+
+global function string f_num_registro (string as_num_serie);Long ll_i, ll_par, ll_impar, ll_asc, ll_desc, ll_n
+
+ll_n = len(as_num_serie)
+
+ll_asc = 1
+ll_desc = round(ll_n/2,0) + 1
+
+For ll_i = 1 to ll_n
+	//Par
+	if mod(ll_i,2) = 0 then
+		ll_par = ll_par + ((long(mid(as_num_serie,ll_i,1)) * ll_asc)*3)
+		
+		ll_asc = ll_asc + 1
+	else
+		ll_impar = ll_impar + ((long(mid(as_num_serie,ll_i,1)) * ll_desc)*7)
+		ll_desc = ll_desc - 1
+	end if
+Next
+
+return string(ll_par) + string(ll_impar)
+end function
+

@@ -1,0 +1,91 @@
+﻿$PBExportHeader$f_valida_mail.srf
+global type f_valida_mail from function_object
+end type
+
+forward prototypes
+global function boolean f_valida_mail (string semail)
+end prototypes
+
+global function boolean f_valida_mail (string semail); Boolean bOK = True  
+  String strDomainType  
+  String strDomainName  
+  Integer i  
+    
+  Constant String sInvalidChars = "!#$%^&*()=+{}[]|\;:'/?>,< "  
+    
+  // if there double quote character  
+  If Pos(sEmail, Char(34)) > 0 Then bOk = False  
+  If Left(sEmail,1) = "." Or Right(sEmail,1) = "." Then bOK = False  
+    
+  If bOK Then  
+     // Check for invalid characters.  
+     If Len(sEmail) > Len(sInvalidChars) Then  
+         For i = 1 To Len(sInvalidChars)  
+           If Pos(sEmail, Mid(sInvalidChars, i, 1)) > 0 Then  
+                bOK = False  
+                 Exit  
+            End If  
+         Next  
+     Else  
+         For i = 1 To Len(sEmail)  
+            If Pos(sInvalidChars, Mid(sEmail, i, 1)) > 0 Then  
+                 bOK = False  
+                 Exit  
+            End If  
+        Next  
+     End If  
+      
+    If bOK Then  
+        //Check for an @ symbol  
+        If Pos(sEmail, "@") > 1 Then   
+            	if(Len(Left(sEmail, Pos(sEmail, "@", 1) - 1)) > 0) then
+				bOK=True
+			else
+				bOK=False
+			end if
+				
+        Else  
+            bOk = False  
+        End If  
+    
+        If bOK Then  
+           //Check to see if there are too many @'s  
+           sEmail = Right(sEmail, Len(sEmail) - Pos(sEmail, "@"))  
+          if(Pos(sEmail, "@") > 0) then
+			            bOK=False
+						else
+							bOK= True
+						end if	
+			  
+    
+           If bOK Then  
+              strDomainType = Right(sEmail, Len(sEmail) - Pos(sEmail, "."))  
+             if(Len(strDomainType) > 0 And Pos(sEmail, ".") < Len(sEmail)) then
+				 bOK =true
+			else
+				 bOK =false
+			end if
+
+    
+              If bOK Then  
+                 sEmail = Left(sEmail, Len(sEmail) - Len(strDomainType) - 1)  
+                 Do Until Pos(sEmail, ".") <= 1  
+                     If Len(sEmail) >= Pos(sEmail, ".") Then  
+                        sEmail = Left(sEmail, Len(sEmail) - (Pos(sEmail, ".") - 1))  
+                     Else  
+                        bOK = False  
+                        Exit  
+                     End If  
+                 Loop  
+                 If bOK Then  
+                    If sEmail = "." Or Len(sEmail) = 0 Then bOK = False  
+                 End If  
+              End If  
+           End If  
+        End If  
+     End If  
+  End If  
+    
+  Return bOk  
+end function
+

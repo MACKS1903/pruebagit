@@ -1,0 +1,662 @@
+﻿$PBExportHeader$f_mensajes.srf
+global type f_mensajes from function_object
+end type
+
+forward prototypes
+global subroutine f_mensajes (integer codigo)
+end prototypes
+
+global subroutine f_mensajes (integer codigo);choose case codigo
+case 1
+  	MessageBox("Información","Ya existe información en la Base de Datos" + sqlca.sqlerrtext, Information!)
+case 2
+  	MessageBox("Información","No es posible conectarse a la Base de Datos" + sqlca.sqlerrtext, Information!)
+case 3
+  	MessageBox("Información","No existe información en la Base de Datos" + sqlca.sqlerrtext, Information!)
+case 4
+  	MessageBox("Información","No se pudo realizar el commit en la Base de Datos" + sqlca.sqlerrtext, Information!)
+case 6
+  	MessageBox("Información ","No es posible actualizar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 7
+  	MessageBox("Información ","No es posible imprimir la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 8
+  	MessageBox("Información ","No es posible recuperar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 9
+  	MessageBox("Información ","No es posible ordenar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 10
+  	MessageBox("Información ","No es posible clasificar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 11
+  	MessageBox("Información ","No es posible realizar la transacción del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 12
+  	MessageBox("Información ","No es posible configurar la impresora" + sqlca.sqlerrtext, Information!)
+case 13
+  	MessageBox("Información ","No es posible insertar en el Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 14
+  	MessageBox("Información ","No es posible eliminar en el Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 15
+  	MessageBox("Información ","No es posible limpiar el Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 16
+  	MessageBox("Información ","No es posible exportar la información del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 17
+  	MessageBox("Información ","No es posible obtener la información de la tabla " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 18
+  	MessageBox("Información ","No es posible actualizar la información de la tabla " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 19
+  	MessageBox("Información ","No es posible borrar la información de la tabla " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 20
+  	MessageBox("Información ","No es posible ingresar la información de la tabla " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 21
+  	MessageBox("Información ","No es posible procesar la función " + gs_mensaje, Information!)
+case 22
+  	MessageBox("Información ","No existe información con estas condiciones", Information!)
+case 23
+  	MessageBox("Información ","No se realizó correctamente el child del Objeto DataWindow " + gs_mensaje + sqlca.sqlerrtext, Information!)
+case 24
+  	MessageBox("Información ","No es posible actualizar la información" + sqlca.sqlerrtext, Information!)
+case 25
+  	MessageBox("Información","Login/Password no son correctos", Information!)
+case 26
+  	MessageBox("Información ","Usted no sabe su clave de acceso...", Information!)
+case 27
+  	MessageBox("Información ","Existe un campo que tiene un valor nulo", Information!)
+case 28
+  	MessageBox("Información ","No existe la lectura de su archivo.ini", Information!)
+case 29
+	gi_mensaje = MessageBox("Información","Desea grabar los cambios realizados", Question!, YesNo!, 1)
+case 30
+  	MessageBox("Información ","La fecha de ingreso debe ser mayor que la fecha de último cierre", Information!)
+case 31
+  	MessageBox("Información ","", Information!)
+case 32
+ 	MessageBox("Información","Para imprimir la información, asegúrese que la impresora se encuentre lista ",Information!)
+case 33
+ 	MessageBox("Información","El Comprobante no tiene detalle completo o está anulado",Information!)
+case 34
+ 	MessageBox("Información","El Comprobante no está cuadrado.~r~n~r~nNo se pueden ingresar comprobantes descuadrados",Information!)
+case 35
+ 	MessageBox("Información","El comprobante debe tener una descripción",Information!)
+case 36
+ 	MessageBox("Información","La fecha del comprobante debe se mayor que el : " + gs_mensaje,Information!)
+case 37
+ 	MessageBox("Información","Usted no ha escogido el tipo de comprobante",Information!)
+case 38
+ 	MessageBox("Información","No puden ser cero el débito y el crédito a la vez en la fila " + gs_mensaje ,Information!)
+case 39
+ 	MessageBox("Información","No puden ser diferentes de cero el débito y el crédito a la vez en la fila "+ gs_mensaje,Information!)
+case 40
+ 	MessageBox("Información","No es posible consultar el detalle del comprobante",Information!)
+case 41
+ 	MessageBox("Información","No existen cuentas que empiecen con estas características",Information!)
+case 42
+ 	gi_mensaje = MessageBox("Información","Esta seguro de ANULAR este comprobante", Question!, YesNo!, 1)
+case 43
+ 	MessageBox("Información","No es posible seleccionar esta cuenta contable",Information!)
+case 44
+ 	MessageBox("Información","No existen comprobantes con estas condiciones",Information!)
+case 45
+	MessageBox("Información","Usted no ingresó la fecha final de actualización de los comprobantes",Information!)
+case 46
+	MessageBox("Información","Sólo se pueden actualizar los comprobantes del mes que sigue al último mes cerrado",Information!)
+case 47
+	MessageBox("Información","No es posible consultar las cuentas contables de la companía",Information!)
+case 48
+	MessageBox("Información","La companía no tiene un plan de cuentas",Information!)
+case 49
+	MessageBox("Información","Usted debe seleccionar el tipo de comprobante para el asiento de cuentas de ingreso y egreso",Information!)
+case 50
+	MessageBox("Información","No se cerraron las cuentas de ingreso y egreso",Information!)
+case 51
+	MessageBox("Información","No existen comprobantes para procesar en esta companía",Information!)
+case 52
+	MessageBox("Información","No es posible recuperar el plan de cuentas",Information!)
+case 53
+	MessageBox("Información","No existe la fecha de último cierre de la companía",Information!)
+case 54
+	gi_mensaje = MessageBox("Información","Usted antes de cerrar el año debe tener el respaldo del año a cerrar. Desea usted continuar?", Question!, YesNo!, 1)
+case 55
+	MessageBox("Información","Debe haber cerrado el mes de diciembre para cerrar el año",Information!)
+case 56
+	MessageBox("Información","No funcionó la copia del reporte",Information!)
+case 57
+	MessageBox("Información","No existen comprobantes",Information!)
+case 58
+	MessageBox("Información","La fecha inicial debe ser menor o igual a la fecha final",Information!)
+case 59
+	MessageBox("Información","Usted debe seleccionar al menos un tipo de comprobante",Information!)
+case 60
+	MessageBox("Información","El rango de fechas no está especificado correctamente",Information!)
+case 61
+	MessageBox("Información","La fecha inicial no debe estar dentro de un año que esta cerrado, porque no existen comprobantes de años cerrados",Information!)
+case 62
+	MessageBox("Información","No es posible insertar los saldos y movimientos",Information!)
+case 63
+	MessageBox("Información","No es posible insertar los títulos",Information!)
+case 64
+	MessageBox("Información","No es posible actualizar los presupuestos",Information!)
+case 65
+	MessageBox("Información","No es posible actualizar la companía y la fecha",Information!)
+case 66
+	MessageBox("Información","No es posible borrar la generación anterior",Information!)
+case 67
+	MessageBox("Información","Usted debe seleccionar el reporte que desea generar",Information!)
+case 68
+	MessageBox("Información","No es posible actualizar en el nivel",Information!)
+case 69
+	MessageBox("Información","La fecha inicial no debe estar dentro de un año que está cerrado, porque no existen comprobantes de años cerrados",Information!)
+case 70
+	MessageBox("Información","El cliente no existe",Information!)
+case 71
+	MessageBox("Información","No puede grabar un abono sin especificar su detalle",Information!)
+case 72
+	MessageBox("Información","El valor del abono en la cabecera debe ser el mismo que en el detalle",Information!)
+case 73
+	MessageBox("Información","La forma de pago no es correcta en la fila " + gs_mensaje,Information!)
+case 74
+	MessageBox("Información","De acuerdo a la forma de pago, el número de cuenta no puede ser nula",Information!)
+case 75
+	MessageBox("Información","De acuerdo a la forma de pago, el número de cheque no puede ser nulo",Information!)
+case 76
+	MessageBox("Información","De acuerdo a la forma de pago, el banco no puede ser nulo",Information!)
+case 77
+	MessageBox("Información","La fecha de cobro no puede ser menor a la actual",Information!)
+case 78
+	MessageBox("Información","Los cheques abonados a la fecha actual se considerarán como depositados",Information!)
+case 79
+	MessageBox("Información","No se podrá aplicar este abono, porque no hay monto por aplicar",Information!)
+case 80
+	MessageBox("Información","Debe ingresar el monto en los detalles",Information!)
+case 81
+	MessageBox("Información","El tipo de nota no puede ser nulo",Information!)
+case 82
+	MessageBox("Información","El cliente no puede ser nulo",Information!)
+case 83
+	MessageBox("Información","El motivo de la nota no puede ser nulo",Information!)
+case 84
+	MessageBox("Información","El valor de la nota de crédito o débito no puede ser menor o igual que cero",Information!)
+case 85
+	MessageBox("Información","No es posible actualizar correctamente los datos",Information!)
+case 86
+	gi_mensaje = MessageBox("Información","Desea usted imprimir la " + gs_mensaje, Question!, YesNo!, 1)
+case 87
+	MessageBox("Información","El valor de la nota no es correcto",Information!)
+case 88
+	MessageBox("Información","No es posible aplicar una cantidad mayor al saldo",Information!)
+case 89
+	gi_mensaje = MessageBox("Información","Debe aplicar la totalidad del Abono. Caso contrario se generará automáticanente una nota de crédito por la cantidad por utilizar del abono. Desea continuar ?", Question!, YesNo!,1)
+case 90
+	MessageBox("Información","No es posible insertar el detalle de la NC automática",Information!)
+case 91
+	MessageBox("Información","No es posible consultar la fecha de último cierre",Information!)
+case 92
+	MessageBox("Información","La companía debe tener fecha de último cierre",Information!)
+case 93
+	MessageBox("Información","La fecha del documento debe ser mayor que la fecha de último cierre",Information!)
+case 94
+	MessageBox("Información","No existe en companía la cuenta de caja general, o de retenciones de cobranzas, o de clientes, o el tipo de comprobante para cobranzas ",Information!)
+case 95
+	MessageBox("Información","No existe en companía la cuenta de clientes o de IVA ",Information!)
+case 96
+	MessageBox("Información","La fecha del abono de la fila " + gs_mensaje + " debe ser mayor que la fecha de último cierre" ,Information!)
+case 97
+	MessageBox("Información","No es posible recuperar la información del detalle de pagos en el abono ",Information!)
+case 98
+	MessageBox("Información","La diferencia entre el monto y la retención no es igual al detalle de los pagos",Information!)
+case 99
+	MessageBox("Información","Se generó el comprobante contable: " + gs_mensaje,Information!)
+case 100
+	MessageBox("Información","El valor del abono no es correcto en la fila " + gs_mensaje,Information!)
+case 101
+	MessageBox("Información","No es posible actualizar la información contable" + sqlca.sqlerrtext,Information!,OkCancel!)
+case 102
+	MessageBox("Información","No es posible consultar la descripción del tipo de comprobante" + sqlca.sqlerrtext,Information!,OkCancel!)
+case 103
+	MessageBox("Información","Se generó el comprobante contable: "+ gs_mensaje,information!)
+case 104
+	MessageBox("Información","Ya existe una factura con este número.",Information!)
+case 105
+	MessageBox("Información","Debe ingresar el detalle de la compra",Information!)
+case 106
+	MessageBox("Información","Debe ingresar el número de factura",Information!)	
+case 107
+	MessageBox("Información","Debe ingresar las fechas de los vencimientos",Information!)		
+case 108
+	MessageBox("Información","Las fechas de los vencimientos deben ser mayor a la fecha de la compra",Information!)		
+case 109
+	MessageBox("Información","Usted debe ingresar el detalle de vencimientos",Information!)				
+case 110
+	MessageBox("Información","La suma total de los vencimientos no es igual con el total de factura",Information!)				
+case 111
+	MessageBox("Información","Ingrese la fecha de último cierre",Information!)				
+case 112
+	MessageBox("Información","La fecha de compra debe ser mayor a la fecha de último cierre",Information!)				
+case 113
+	MessageBox("Información","La cantidad en uno de los artículos no es correcta",Information!)				
+case 114
+	MessageBox("Información","El costo unitario en uno de los artículos no es correcto",Information!)				
+case 115
+	MessageBox("Información","Usted debe ingresar el tipo de comprobante para la compra",Information!)				
+case 116
+	MessageBox("Información","No existe el secuencial de comprobante para compra",Information!)				
+case 117
+	MessageBox("Información","La cuenta contable " +gs_mensaje +", no existe en la conpanía",Information!)				
+case 118
+	MessageBox("Información","Ya existe el artículo " +gs_mensaje,Information!)				
+case 119
+	MessageBox("Información","Usted debe ingresar el proveedor",Information!)					
+case 120 
+	MessageBox("Información","No existen " + gs_mensaje + " con estas condiciones!",Information!)					
+case 121 
+	MessageBox("Información","Seleccione el tipo de nota de crédito",Information!)					
+case 122 
+	MessageBox("Información","No existe cantidad suficiente en la bodega " + gs_mensaje + " para realizar la devolución",Information!)					
+case 123 
+	MessageBox("Información","No se encontró la información contable",Information!)					
+case 124 
+	MessageBox("Información","La companía debe tener la fecha de último cierre",Information!)						
+case 125 
+	MessageBox("Información","No se contabilizan las N/C, porque la fecha de último cierre es mayor que hoy",Information!)							
+case 126 
+	MessageBox("Información","El tipo de comprobante para la N/C no existe",Information!)							
+case 127 
+	MessageBox("Información","La cuenta no es de detalle",Information!)								
+case 128 
+	MessageBox("Información","El campo "+ gs_mensaje + ",no puede ser vacío",Information!)	
+case 129 
+	MessageBox("Información","No es posible actualizar los datos",Information!)
+case 130 
+	MessageBox("Información","Debe seleccionar primero " + gs_mensaje,Information!)	
+case 131 
+	MessageBox("Información","El código de esta cuenta está duplicado ",Information!)		
+case 132 
+	MessageBox("Información","No es posible cambiar el tipo de cuenta, porque existen " + gs_mensaje + " que se realizaron usando esta cuenta contable",Information!)		
+case 133 
+	MessageBox("Información","Sólo las cuentas contables de detalle pueden tener Saldo Incial. Favor verifique el tipo de cuenta",Information!)		
+case 134 
+	MessageBox("Información","Esta cuenta no existe",Information!)		
+case 135 
+	MessageBox("Información","Debe seleccionar primero el tipo de comprobante",Information!)		
+case 136 
+	MessageBox("Información","El campo abreviatura del registro: " + gs_mensaje + " no debe ser vacío" ,Information!)		
+case 137 
+	MessageBox("Información","El artículo de código: " + gs_mensaje + "~n~rNo debe borrarse por que tiene movimientos" ,Information!)		
+case 138 
+	MessageBox("Información","El stock no debe ser menor que cero" ,Information!)		
+case 139 
+	MessageBox("Información","El cliente no existe" ,Information!)			
+case 140 
+	gi_mensaje = MessageBox("Información","Desea usted realizar otras facturas? ", Question!, YesNo!, 1)
+case 141 
+	MessageBox("Información","La fecha del documento debe ser mayor que la fecha de último cierre",Information!)	
+case 142 
+	MessageBox("Información","El valor " + gs_mensaje + " no es válido ",Information!)	
+case 143 
+	MessageBox("Información","No existe en companía la cuenta de ventas, o de IVA ventas, o de clientes, o el tipo de comprobante para ventas ",Information!)	
+case 144 
+	MessageBox("Información","Ingrese el secuencial de comprobantes " +sqlca.sqlerrtext)
+case 145 
+	MessageBox("Información","Usted no ha realizado ninguna compra,~npara proceder a vender artículos",Information!)	
+case 146
+	MessageBox("Información","No se realizó correctamente el child de " + gs_mensaje  +sqlca.sqlerrtext)
+case 147
+	MessageBox("Información","No existe codigo: "+ gs_mensaje +" Consulte al proveedor del software !",Information!)	
+case 148
+	MessageBox("Información","Verifique la existencia de~r~ncosto promedio en los artículos.",Information!)
+case 149
+	MessageBox("Información","Código nulo, consulte al proveedor del software !",Information!)
+case 150
+	MessageBox("Información","En impresión de factura",Information!)
+case 151
+	MessageBox("Información","Debe registrar un vendedor",Information!)
+case 152
+	MessageBox("Información","Verifique que el detalle de vencimientos sea igual con el valor a pagar",Information!)	
+case 153
+	MessageBox("Información","No ha ingresado " + gs_mensaje+ " para un artículo",Information!)	
+case 154 
+	MessageBox("Información","Falló el evento " + gs_mensaje + " para la obtención de secuenciales de FACTURA",Information!)	
+case 155
+	MessageBox("Información","El valor facturado debe ser igual al~nvalor total en vencimientos")
+case 156
+	MessageBox("Información","No existe el número de comprobante en la factura " +sqlca.sqlerrtext)
+case 157
+	Messagebox("Informacion","Anulación con éxito !")
+case 158
+	MessageBox("Información","A excedido el límite permitido",Information!)
+case 159
+	MessageBox("Información","No puede anular la Factura: "+ gs_mensaje+". ~nYa tiene un producto devuelto")	
+case 160
+	MessageBox("Información","La fecha del último cierre de contabilidad es mayor a la~r~nfecha de hoy. El asiento será generado para el próximo mes. ",Information!)
+case 161
+	MessageBox("Información","No es posible mover cantidades inexistentes",Information!)
+case 162
+	MessageBox("Información","Ingrese la Cuenta de " + gs_mensaje,Information!)
+case 163
+	MessageBox("Información","Esta factura no existe ",Information!)	
+case 164	
+	gi_mensaje = MessageBox("Información","Desea realizar los cambios?",question!,yesno!,2)
+case 165	
+	MessageBox("Información","Debe marcar las Facturas que desee embarcar",Information!)
+case 166	
+	MessageBox ("Información","No existe información para procesar",Information!)
+case 167			
+	MessageBox ("Información", "Debe ingresar el detalle de los pagos",Information!)
+case 168			
+	MessageBox ("Información", "El Total de los pagos, debe ser igual al total de la obligación",Information!)
+case 169
+	MessageBox ("Información", "El Total de las retenciones de la cabecera, debe ser igual al total de la suma del detalle de las retenciones",Information!)
+case 170
+	MessageBox ("Información","Las fechas de vencimiento de los pagos deben ser mayores o iguales a la fecha de la Obligación",Information!)
+case 171
+	MessageBox ("Información", "No es posible anular facturas, porque la fecha de último cierre es mayor que hoy",Information!)
+case 172
+	MessageBox("Información","No es posible grabar un pago sin especificar su detalle",Information!)
+case 173		
+	MessageBox("Información","El valor del pago en la cabecera debe ser el mismo que en el detalle",Information!)
+case 174		
+	MessageBox("Información","De acuerdo a la forma de pago, el " + gs_mensaje+ " no debe ser nula",Information!)
+case 175
+	MessageBox("Información","La fecha de " + gs_mensaje + " no debe ser menor a la actual",Information!)
+case 176
+	MessageBox("Información","Los cheques abonados a la fecha actual se considerarán como pagados!", information!)
+case 177
+	MessageBox ("Información","No se podrá aplicar este pago, porque no existe monto por aplicar",Information!)
+case 178
+	MessageBox("Información","El valor de la nota de crédito o débito no debe ser menor o igual que cero",Information!)
+case 179
+	gi_mensaje = MessageBox("Información","Desea usted imprimir la " + gs_mensaje ,Question!, YesNo!, 1)
+case 180
+	MessageBox("Información","Usted no ingresó los motivos de NC y/o ND. No es posible realizar esta operación ",Information!)
+case 181
+	MessageBox("Información","No es posible aplicar una cantidad mayor al saldo",Information!)
+case 182
+	MessageBox("Información","La cantidad Total aplicada no puede ser cero",Information!)
+case 183		
+	gi_mensaje = MessageBox("Información","Debe aplicar la totalidad del pago. Caso contrario se generará automáticanente una nota de crédito por la cantidad por utilizar del abono. Desea Continuar ?", Question!, YesNo!,1)
+case 184
+	MessageBox("Información","No es posible recuperar correctamente el secuencial de " + gs_mensaje, Information!)
+case 185
+	MessageBox("Información","No es posible insertar el detalle de la NC automática",Information!)
+case 186
+	MessageBox("Información","Los valores del monto son no válidos " +sqlca.sqlerrtext,Information!)
+case 187
+	MessageBox("Información","No existe en companía " + gs_mensaje +sqlca.sqlerrtext,Information!)
+case 188
+	MessageBox("Información","No existe cuenta contable en su cuenta bancaria " +sqlca.sqlerrtext,Information!)		
+case 189
+	MessageBox("Información","La diferencia entre el monto y el detalle de los pagos no es igual " +sqlca.sqlerrtext,Information!)
+case 190
+	MessageBox("Información","El valor para aplicar no debe ser mayor que el saldo total" +sqlca.sqlerrtext,Information!)
+case 191
+	MessageBox("Información","Se ha excedido el stock disponible.",stopsign!)
+case 192
+	MessageBox("Información","No existe este artículo o no tiene stock disponible", information!)
+case 193
+	MessageBox("Información","No existen artículos diponibles para venta",information!)
+case 194	
+	messagebox("Información","Se ha excedido el límite de crédito para este cliente" + gs_mensaje,information!)
+case 195
+	MessageBox("Información","No es posible tener en la factura más de " + gs_mensaje + " items",Information!)
+case 196
+	MessageBox("Información","No existen "+gs_mensaje+" suficientes en stock.~r~nVerifique las cantidades en stock disponible",information!)
+case 197
+	Messagebox("Información","Seleccione algún registro del detalle !",information!)
+case 198	
+	MessageBox("Información","El valor total para aplicar no debe ser mayor que el saldo del descuento",Information!)
+case 199
+	MessageBox("Información","No existen datos de NC pendientes por aplicar",Information!)
+case 200
+	MessageBox("Información","No existen datos de obligaciones pendientes",Information!)
+case 201
+	MessageBox("Información","Usted debe registrar un cliente",Information!)	
+case 202
+	MessageBox("Información","La fecha de pago de la fila " + gs_mensaje + " debe ser mayor que la fecha del último cierre",Information!)	
+case 203
+	MessageBox("Información","La fecha de ingreso debe ser mayor que la fecha del último cierre",Information!)	
+case 204
+	MessageBox("Información","No es posible realizar el ajuste, el artículo no tiene costo promedio",Information!)	
+case 205
+	MessageBox("Información","No es posible realizar el ajuste, el artículo no tiene costo promedio"+ gs_mensaje,Information!)	
+case 206
+	MessageBox("Información","El cliente ingresado ya existe, su número de código es No: "+ gs_mensaje,Information!)	
+case 207
+	MessageBox("Información","El proveedor ingresado ya existe, su número de código es "+ gs_mensaje,Information!)	
+case 208
+	MessageBox("Información","Este usuario no tiene asignado ningún permiso",Information!)	
+case 209	
+	MessageBox("Error","Usted está ingresando si el respectivo permiso",Information!)
+case 210
+	MessageBox ("Información","No es posible aplicar este pago, porque todavia no puede ser cobrado",Information!)	
+case 300
+	MessageBox("Información","El valor para el depósito no es correcto",Information!)
+case 301
+	MessageBox("Información","La cantidad total aplicada no debe ser cero",Information!)
+case 302
+	MessageBox("Información","No es posible recuperar correctamente los datos de los pagos",Information!)
+case 303
+	MessageBox("Información","No es posible recuperar correctamente los datos de las obligaciones",Information!)
+case 304
+	MessageBox("Información","No existen datos de facturas o notas de débito por aplicar",Information!)
+case 305
+	MessageBox("Información","El valor para aplicar no de ser mayor que el saldo",Information!)
+case 306
+	MessageBox("Información","El valor para aplicar no debe ser mayor que el saldo total",Information!)
+case 307
+	MessageBox("Información","No es posible obtener el saldo de las facturas y notas de débito",Information!)
+case 308
+	MessageBox("Información","No es posible obtener el saldo de las notas de crédito",Information!)
+case 309
+	gi_mensaje = MessageBox("Información","Desea salir grabando la información?", Question!, YesNo!, 1)
+case 310
+	MessageBox("Información","Usted no seleccionó un tipo de cliente",Information!)
+case 311
+	MessageBox("Información","Usted no seleccionó una categoría de cliente",Information!)
+case 312
+	MessageBox("Información","Usted no seleccionó un País",Information!)
+case 313
+	MessageBox("Información","Usted no seleccionó una Provincia",Information!)
+case 314
+	MessageBox("Información","Usted no seleccionó una ciudad",Information!)
+case 315
+	MessageBox("Información","Usted no seleccionó una zona",Information!)
+case 316
+	MessageBox("Información","Usted no seleccionó un vendedor",Information!)
+case 317
+	MessageBox("Información","Usted debe seleccionar la bodega",Information!)
+case 318
+	MessageBox("Información","Cuenta contable : " + gs_mensaje,Information!)
+case 319
+	MessageBox("Información","Usted debe seleccionar un tipo de comprobante",Information!)
+case 320
+	MessageBox("Información","Ya existen comprobante asignados a esta cuenta bancaria",Information!)
+case 321
+	MessageBox("Información","No existe efectivo para realizar el pago",Information!)
+case 322
+	MessageBox("Información","El valor que se ingresó no es correcto. " + gs_mensaje,Information!)
+case 323
+	MessageBox("Información","La cuenta : " + gs_mensaje + " es reservada.",Information!)
+case 324
+	MessageBox("Información","El cliente tiene un saldo pendiente",Information!)
+case 325
+	MessageBox("Información","Usted no ingreso la descripción del artículo",Information!)
+case 326
+	MessageBox("Información","Usted no seleccionó un tipo de unidad",Information!)
+case 327
+	MessageBox("Información","Existen comprobantes generados con la cuenta : " + gs_mensaje,Information!)
+case 328
+	gi_mensaje = MessageBox("Información","El tipo de servicio ya esta procesado en el mes. Desea procesar nuevamente?",question!,yesno!,2)
+case 329
+	gi_mensaje = MessageBox("Información","No es posible procesar, porque ya existe impresión de facturas",Information!)
+case 330
+	MessageBox("Información","No es posible anular la factura porque el monto y el saldo no son iguales" + gs_mensaje,Information!)
+case 331
+	MessageBox("Información","El sistema imprimió la factura :" + gs_mensaje,Information!)
+case 332
+	MessageBox("Información","El " + gs_mensaje + " ya existe",Information!)
+case 333
+	MessageBox("Información","El " + gs_mensaje + " no es correcto",Information!)
+case 334
+	MessageBox("Información","No es posible recuperar las cuentas de ingreso y egreso." ,Information!)
+case 335
+	MessageBox("Información","Esta companía no tiene cuentas de ingreso y egreso." ,Information!)
+case 336
+	MessageBox("Información","El cierre de las cuentas de ingreso y egreso, no generó un comprobante contable " ,Information!)
+case 337
+	MessageBox("Información","Debe ingresar el detalle " + gs_mensaje,Information!)
+case 338
+	MessageBox("Información","La anulación se realizó con exito.",Information!)
+case 339
+	MessageBox("Información","La fórmula es válida",Information!)
+case 340
+	MessageBox("Información","La fórmula no es válida",Information!)
+case 341
+	MessageBox("Información","No es posible modificar los precios, no existe la fórmula",Information!)
+case 342
+	MessageBox("Información","El proveedor no existe",Information!)
+case 343
+	MessageBox("Información","El artículo no existe",Information!)
+case 344
+	MessageBox("Información","El número de artículos no es válido",Information!)
+case 345
+	MessageBox("Información","El grupo no existe",Information!)
+case 346
+	MessageBox("Información","La suma de las cantidades de las bodegas no es igual a la cantidad que se va a vender. " + gs_mensaje ,Information!)
+case 347
+	MessageBox("Información","Usted no selecciona el artículo, la unidad o el tipo",Information!)
+case 348
+	MessageBox("Información","El valor de la venta no puede ser mayor al stock disponible",Information!)
+case 349
+	MessageBox("Información","No existe stock disponible para el pedido, se considerará todo el stock disponible. " + gs_mensaje ,Information!)
+
+
+
+case 400
+ 	MessageBox("Información","El artículo: " + gs_mensaje +" no existe en la base de datos.",Information!)
+case 401
+	MessageBox("Información","El artículo ingresado ya existe, su número de código es "+ gs_mensaje,Information!)				
+case 402
+	MessageBox("Información","El usuario no tiene permiso para esta aplicación, consulte con el Administrador",information!)			
+case 403
+	MessageBox("Información","El Usuario no es miembro de un grupo, consulte con el Administrador", information!)		
+case 404
+	MessageBox("Información","Grupo por default no especificado, consulte con el Administrador",information!)		
+case 405	
+	MessageBox("Error","No se pudo recuperar los permisos, consulte con el Administrador")				
+case 406	
+	MessageBox("Error","Error en los permisos del menú",stopsign!)
+case 407	
+	MessageBox ("Información", "El número de registro no es válido",information!)
+case 408	
+	MessageBox ("Información", "La " + gs_mensaje + " no puede ser menor que cero",information!)	
+case 409	
+	MessageBox ("Información", "El cliente no tiene documentos pendientes de cobro",information!)	
+case 410	
+	MessageBox ("Información", "El proveedor no tiene documentos pendientes de cobro",information!)	
+case 411	
+	MessageBox ("Información", "No es posible procesar " + gs_mensaje,information!)	
+case 412	
+	gi_mensaje = MessageBox("Información","Usted está seguro que desea eliminar los anteriores ?",Information!,YesNo!)
+case 413	
+	gi_mensaje = MessageBox("Información","Usted está seguro que desea eliminar el último ?",Information!,YesNo!)
+case 414 
+	MessageBox("Información", gs_mensaje + "~n~rNo debe borrarse por que tiene movimientos" ,Information!)		
+case 415	
+	gi_mensaje = MessageBox("Información","Usted está seguro que desea eliminar ?",Information!,YesNo!)
+case 416	
+	MessageBox("Información","Esta fila está relacionada con una fórmula en la fila :" + gs_mensaje,Information!)
+case 417 
+	MessageBox("Información", "No puede borrarse este registro." + "~n~rCorresponde a la unidad básica." ,Information!)		
+
+
+
+case 500
+	MessageBox("Información","No es posible obtener la fecha del sistema	",Information!)
+case 501
+	MessageBox("Información","No es posible procesar los datos, la fecha tiene un mes que está fuera de rango",Information!)
+case 510		
+	messagebox("Información","Se Eliminara un Registro de " + gs_mensaje,Information!)	
+
+
+
+case 600
+	MessageBox("Información","El proceso se realizó con exito.",Information!)	
+case 601
+	MessageBox("Información","El empleado  " + gs_mensaje,Information!)		
+case 602
+	gi_mensaje = MessageBox("Información","Usted desea imprimir más facturas ?",Information!,YesNo!)
+case 603  
+	MessageBox("Información","No existe costo promedio",Information!)
+case 604  
+	MessageBox("Información","La cantidad devuelta es mayor que el stock disponible",Information!)
+case 605  
+	MessageBox("Información","En esta factura no existen artículos para realizar devoluciones",Information!)
+case 606  
+	MessageBox("Información","El artículo que usted ingresó no es correcto, no existe en la base de datos o no tiene stock disponible",Information!)
+case 607  
+	MessageBox("Información","La cantidad que usted ingresó es mayor que el stock disponible",Information!)
+case 608
+	MessageBox("Información","El estado del cliente es el siguiente :" + gs_mensaje,Information!)
+case 609
+	MessageBox("Información","No existen registros en los vencimientos de la factura",Information!)
+case 610
+	MessageBox("Información","No existen registros en el detalle de artículos",Information!)
+case 611
+	MessageBox("Información","Existe un valor de monto que no es correcto en los vencimientos de la factura",Information!)
+case 612
+	MessageBox("Información","Existe un cantidad en un artículo que no es correcta" + gs_mensaje,Information!)
+case 613
+	MessageBox("Información","El artículo que usted ingresó no tiene stock. " + gs_mensaje, Information!)
+case 614
+	MessageBox("Información","El artículo que usted ingresó no tiene stock en las bodegas",Information!)
+case 615
+	MessageBox("Información","El artículo que usted ingresó tiene una diferencia de stock en la suma de las bodegas  y el total",Information!)
+case 616
+	MessageBox("Información","El formato de la factura no es correcto",Information!)
+case 617
+	MessageBox("Información","No es posible insertar más artículos que el asignado en el diseño de la factura",Information!)
+case 618
+	gi_mensaje = MessageBox("Información","Usted está seguro que desea eliminar el cheque ?",Information!,YesNo!)
+case 619
+	MessageBox("Información","Existe un proceso de inconsistencia en la factura",Information!,YesNo!)
+case 620
+	gi_mensaje = MessageBox("Información","El artículo que usted ingresó no tiene stock disponible. Desea usted ingresar el stock disponible?",question!,yesno!,2)
+case 621 
+	MessageBox("Información","No se ha realizado ninguna compra de este artículo",Information!)	
+case 622 
+	MessageBox("Información","El valor del monto tiene que ser mayor o igual que cero",Information!)	
+case 623
+	MessageBox("Información","El porcentaje de descuento no es correcto",Information!)	
+case 624
+	MessageBox("Información","En vencimientos la fecha de vencimiento tiene que ser mayor o igual a la fecha de la factura",Information!)	
+case 625
+	MessageBox("Información","No existe una cuenta contable asignada en la fila " + gs_mensaje,Information!)	
+case 626
+	MessageBox("Información","El diario de contabilidad no se generó en forma adecuada" ,Information!)	
+case 627 
+	MessageBox("Información","No es posible anular un pedido donde su estado sea diferente de pendiente",Information!)			
+case 628
+	MessageBox("Información","No es posible procesar la información, los datos no son válidos",Information!)		
+
+
+case 700
+	gi_mensaje = MessageBox("Información","Usted desea procesar la información de " + gs_mensaje,Information!,YesNo!)
+case 701
+	gi_mensaje = MessageBox("Información","Usted desea procesar la información para asignar a los anticipos en el mes " + gs_mensaje,Information!,YesNo!)
+case 702
+	MessageBox("Información","No existen empleados en esta companía",Information!)
+case 703
+	MessageBox("Información","La fecha de proceso no es correcta",Information!)
+case 704
+	MessageBox("Información","El número de días trabajados no es correcto",Information!)
+case 705
+	MessageBox("Información","El valor de total ingresos no es correcto",Information!)
+case 706
+	MessageBox("Información","No es posible ejecutar el proceso, antes usted debe ejecutar el proceso para calcular los valores",Information!)
+case 707
+	MessageBox("Información","No es posible ejecutar el proceso, antes usted debe ingresar el atributo de ingreso y/o descuento",Information!)
+
+
+case else  
+	MessageBox("Información","No existe código para el gs_mensaje No.: " + string(codigo) ,Information!)
+end choose
+
+end subroutine
+

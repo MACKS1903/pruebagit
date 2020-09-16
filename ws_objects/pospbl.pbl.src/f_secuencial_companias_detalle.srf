@@ -1,0 +1,95 @@
+﻿$PBExportHeader$f_secuencial_companias_detalle.srf
+$PBExportComments$funcion que obtiene el secuencial de documentos
+global type f_secuencial_companias_detalle from function_object
+end type
+
+forward prototypes
+global function long f_secuencial_companias_detalle (string tabla, string emision)
+end prototypes
+
+global function long f_secuencial_companias_detalle (string tabla, string emision);/*************************************************************/
+/* Esta funcion retorna el secuencial que toca de cualquier  */
+/* tabla, recuperando de la tabla SEQNO.                     */
+/*************************************************************/
+//companias_detalle.cod_estab = :tabla and companias_detalle.num_emision=:emision;
+//tabla  gs_empresa,
+//emsion tipo
+LONG secuencial, li_i
+
+if emision='EV' then
+
+	SELECT companias_detalle.seqnofc
+  	INTO :secuencial 
+  	FROM companias_detalle with(holdlock)
+ 	WHERE companias_detalle.subempresa = :tabla;
+	 
+DO WHILE SQLCA.SqlDBCODE = 1205
+	FOR li_i = 1 to 200000
+	Next
+	SELECT companias_detalle.seqnofc
+  	INTO :secuencial 
+  	FROM companias_detalle with(holdlock)
+ 	WHERE companias_detalle.subempresa = :tabla;
+LOOP
+
+IF SQLCA.SqlnRows = 0 then
+	gs_mensaje="companias_detalle_SEQNO"
+	f_mensajes(17)
+	return -1
+	rollback;
+END IF
+
+UPDATE companias_detalle
+   SET SEQNOFC =SEQNOFC + 1  
+  WHERE companias_detalle.subempresa = :tabla;
+
+IF SQLCA.SqlCode < 0 then
+	gs_mensaje="COMPANIAS_DETALLE_seqno"
+	f_mensajes(18)
+	rollback;
+	return -1	
+END IF
+
+return secuencial
+
+end if //EV
+
+if emision='ID' then
+	SELECT companias_detalle.seqnonc
+  	INTO :secuencial 
+  	FROM companias_detalle with(holdlock)
+ 	WHERE companias_detalle.subempresa = :tabla;
+	 
+DO WHILE SQLCA.SqlDBCODE = 1205
+	FOR li_i = 1 to 200000
+	Next
+	SELECT companias_detalle.seqnonc
+  	INTO :secuencial 
+  	FROM companias_detalle with(holdlock)
+ 	WHERE companias_detalle.subempresa = :tabla;
+LOOP
+
+IF SQLCA.SqlnRows = 0 then
+	gs_mensaje="companias_detalle_SEQNO"
+	f_mensajes(17)
+	return -1
+	rollback;
+END IF
+
+UPDATE companias_detalle
+   SET SEQNONC =SEQNONC + 1  
+  WHERE companias_detalle.subempresa = :tabla;
+
+IF SQLCA.SqlCode < 0 then
+	gs_mensaje="COMPANIAS_DETALLE_seqno"
+	f_mensajes(18)
+	rollback;
+	return -1	
+END IF
+
+return secuencial
+
+
+END IF
+end function
+

@@ -1,0 +1,52 @@
+﻿$PBExportHeader$f_secuencial_estab.srf
+$PBExportComments$funcion que obtiene el secuencial de documentos
+global type f_secuencial_estab from function_object
+end type
+
+forward prototypes
+global function long f_secuencial_estab (string tabla, string emision)
+end prototypes
+
+global function long f_secuencial_estab (string tabla, string emision);/*************************************************************/
+/* Esta funcion retorna el secuencial que toca de cualquier  */
+/* tabla, recuperando de la tabla SEQNO.                     */
+/*************************************************************/
+//anex_ventasestab.cod_estab = :tabla and anex_ventasestab.num_emision=:emision;
+
+LONG secuencial, li_i
+
+	SELECT anex_ventasestab.seqno
+  	INTO :secuencial 
+  	FROM anex_ventasestab with(holdlock)
+ 	WHERE anex_ventasestab.cod_estab = :tabla and anex_ventasestab.num_emision=:emision;
+	 
+DO WHILE SQLCA.SqlDBCODE = 1205
+	FOR li_i = 1 to 200000
+	Next
+	SELECT anex_ventasestab.seqno
+  	INTO :secuencial 
+  	FROM anex_ventasestab with(holdlock)
+ 	WHERE anex_ventasestab.cod_estab = :tabla and anex_ventasestab.num_emision=:emision; 	
+LOOP
+
+IF SQLCA.SqlnRows = 0 then
+	gs_mensaje="ANEX_SEQNO"
+	f_mensajes(17)
+	return -1
+	rollback;
+END IF
+
+UPDATE anex_ventasestab
+   SET SEQNO =SEQNO + 1  
+ WHERE anex_ventasestab.cod_estab = :tabla and anex_ventasestab.num_emision=:emision;
+
+IF SQLCA.SqlCode < 0 then
+	gs_mensaje="anex_seqno"
+	f_mensajes(18)
+	rollback;
+	return -1	
+END IF
+
+return secuencial
+end function
+

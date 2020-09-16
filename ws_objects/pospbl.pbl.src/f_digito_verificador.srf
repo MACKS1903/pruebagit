@@ -1,0 +1,129 @@
+﻿$PBExportHeader$f_digito_verificador.srf
+global type f_digito_verificador from function_object
+end type
+
+forward prototypes
+global function integer f_digito_verificador (string cedula, string tipo)
+end prototypes
+
+global function integer f_digito_verificador (string cedula, string tipo);string ls_tipo
+string ls_cedula,ls_par,ls_impar
+integer li_digito,li_cuenta,li_pares,i,li_pos=0,li_impar,li_par,li_sumaimpar=0,li_sumat=0,li_ver,li_di,li_prov
+
+cedula=trim(cedula)
+li_cuenta=len(cedula)
+li_prov=integer(mid(cedula,1,2))
+if li_prov <=0  or li_prov >24 then
+	messagebox("","No corresponde a una provincia válida"	)
+		return -1
+	end if		
+	
+
+li_di=integer(mid(cedula,10,1))
+if tipo='C' then //cedula
+if li_cuenta=10 then //
+///////////
+for i=1 to 9
+	if i=2 or i=4 or i=6 or i=8 then
+     ls_par=mid(cedula,i,1)
+	  li_par=li_par + integer(ls_par)
+   else 
+     ls_impar=mid(cedula,i,1)
+	  li_impar=integer(ls_impar) * 2
+	  if li_impar >=9 then
+		li_impar=li_impar - 9
+     end if
+	  	li_sumaimpar=li_sumaimpar + li_impar
+	end if	 
+
+next
+
+li_sumat=li_par + li_sumaimpar
+li_ver=mod(li_sumat,10)
+if isnull(li_ver) then li_ver=0
+if li_ver=0 then
+	li_digito=0
+else
+	li_digito= 10- li_ver
+end if	
+///////////
+else
+li_digito=-1
+
+end if//10
+
+
+end  if //c
+
+
+	
+
+if tipo='R' then //ruc
+
+
+
+if li_cuenta=13 then //
+
+if integer(mid(cedula,11,1))<>0 then
+	messagebox("","No corresponde a 001"	)
+	return -1
+end if	
+
+if integer(mid(cedula,12,1))<>0 then
+	messagebox("","No corresponde a 001"	)
+	return -1
+end if	
+
+if integer(mid(cedula,13,1))<>1 then
+	messagebox("","No corresponde a 001"	)
+	return -1
+end if	
+
+
+/////////
+for i=1 to 9
+	if i=2 or i=4 or i=6 or i=8 then
+     ls_par=mid(cedula,i,1)
+	  li_par=li_par + integer(ls_par)
+   else 
+     ls_impar=mid(cedula,i,1)
+	  li_impar=integer(ls_impar) * 2
+	  if li_impar >=9 then
+		li_impar=li_impar - 9
+     end if
+	  	li_sumaimpar=li_sumaimpar + li_impar
+	end if	 
+
+next
+
+li_sumat=li_par + li_sumaimpar
+li_ver=mod(li_sumat,10)
+if isnull(li_ver) then li_ver=0
+if li_ver=0 then
+	li_digito=0
+else
+	li_digito= 10- li_ver
+end if	
+else
+li_digito=-1
+end if
+
+end  if
+
+
+
+
+if li_di=li_digito then
+return 1
+else
+return -1
+end if
+
+
+
+
+
+
+
+end function
+

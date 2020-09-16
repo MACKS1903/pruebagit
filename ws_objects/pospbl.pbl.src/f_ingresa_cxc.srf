@@ -1,0 +1,128 @@
+﻿$PBExportHeader$f_ingresa_cxc.srf
+global type f_ingresa_cxc from function_object
+end type
+
+forward prototypes
+global function integer f_ingresa_cxc (integer li_caja1, long ll_nota, integer ll_funcionario, datetime dt_fecha, double valorc, long ll_cliente, string estab, string ptoemi)
+end prototypes
+
+global function integer f_ingresa_cxc (integer li_caja1, long ll_nota, integer ll_funcionario, datetime dt_fecha, double valorc, long ll_cliente, string estab, string ptoemi);string ls_numero,ls_ref
+double ld_preimpreso
+ls_numero = 'F'+estab+ptoemi+'-'+string(ll_nota)
+//STRING(li_caja1)+'-'+string(ll_nota)
+//			ld_preimpreso = double(ls_ref)
+			//voy a ingresar el cxc_documento
+			  INSERT INTO cxc_documento  
+         ( tipo_documento,   
+           nr_documento,   
+           cod_ingreso,   
+           cod_funcionario,   
+           cod_nota,   
+           cod_sistema,   
+           cod_forma_pago,   
+           tipo_mov_doc,   
+           f_documento,   
+           f_proceso,   
+           cod_cliente,   
+           subtotal,   
+           descuento,   
+           iva,   
+           otros_cargos,   
+           monto,   
+           retencion,   
+           saldo,   
+           nr_recibo,   
+           nr_comprob,   
+           tipo_comprob,   
+           usuario,   
+           observacion,   
+           nr_preimpreso,   
+           ln,   
+           estado,   
+           nota_embarque,   
+           fecha_cancelacion,   
+           tarifa_0,   
+           fecha_embarque,   
+           porcentaje_iva,   
+           descuento_iva,   
+           descuento_sin_iva,   
+           c_iva,   
+           cod_bodega,   
+           cod_transporte ,
+		  subempresa	  )  
+  VALUES ( 'ND',   
+           :ls_numero,   
+           null,   
+           :ll_funcionario,   
+           null,   
+           6,   
+           4,   
+           'O',   
+           :dt_fecha,   
+           :dt_fecha,   
+           :ll_cliente,   
+           :valorc,   
+           0,   
+           0,   
+           0,   
+           :valorc,   
+           0,   
+           :valorc,   
+           null,   
+           null,   
+           null,   
+           'ADM',   
+           :ls_ref,   
+           0,   
+           '1',   
+          NULL,  
+           null,   
+           null,   
+           0,   
+           null,   
+           0,   
+           0,   
+           0,   
+           :gs_piva,   
+           :gi_bodega,   
+           1 ,
+		  :gs_subempresa )  ;
+
+	  if sqlca.sqlcode < 0 or sqlca.sqlcode = 100 then
+		messagebox("Información","No puedo grabar cxc_documentoo~r~nConsulte a su proveedor del sistema.",information!)
+		rollback;
+		return -1
+    end if
+			///ahora vamos al detalle
+			  INSERT INTO cxc_det_documento  
+         ( tipo_documento,   
+           nr_documento,   
+           det_documento,   
+           cod_ingreso,   
+           f_venc,   
+           monto,   
+           saldo,   
+           observacion,
+	      subempresa		  
+            )  
+  VALUES ( 'ND',   
+           :ls_numero,   
+           1,   
+           null,   
+           :dt_fecha,   
+           :valorc,   
+           :valorc,   
+           :ls_ref ,  
+            :gs_subempresa)  ;
+				commit;
+		if sqlca.sqlcode < 0 or sqlca.sqlcode = 100 then
+		messagebox("Información","No puedo grabarel detalle cxc_documentoo~r~nConsulte a su proveedor del sistema.",information!)
+		rollback;
+		return -1
+    end if
+	 
+	 
+	 return 1
+
+end function
+

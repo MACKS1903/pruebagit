@@ -1,0 +1,22 @@
+﻿$PBExportHeader$d_lista_forma_tarjeta.srd
+$PBExportComments$Listado de formas de tarjeta de credito
+release 6;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes name=cod_sec_tar dbname="forma_tarjeta.cod_sec_tar" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=cod_tarjeta dbname="forma_tarjeta.cod_tarjeta" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=tipo dbname="forma_tarjeta.tipo" values="CORRIENTE	C/DIFERIDO	D/PLAN PAGOS	P/OTROS	O/" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=con_interes dbname="forma_tarjeta.con_interes" values="Con Interes	S/Sin Interes	N/" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nro_meses dbname="forma_tarjeta.nro_meses" values="3	3/6	6/9	9/12	12/18	18/24	24/" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=prc_suc dbname="forma_tarjeta.prc_suc" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=prc_dol dbname="forma_tarjeta.prc_dol" initial="0" )
+ column=(type=char(200) updatewhereclause=yes name=tarjeta_nombre dbname="tarjeta.nombre" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"forma_tarjeta~" )  TABLE(NAME=~"tarjeta~" ) COLUMN(NAME=~"forma_tarjeta.cod_sec_tar~") COLUMN(NAME=~"forma_tarjeta.cod_tarjeta~") COLUMN(NAME=~"forma_tarjeta.tipo~") COLUMN(NAME=~"forma_tarjeta.con_interes~") COLUMN(NAME=~"forma_tarjeta.nro_meses~") COLUMN(NAME=~"forma_tarjeta.prc_suc~") COLUMN(NAME=~"forma_tarjeta.prc_dol~") COLUMN(NAME=~"tarjeta.nombre~")    JOIN (LEFT=~"tarjeta.cod_tarjeta~"    OP =~"=~"RIGHT=~"forma_tarjeta.cod_tarjeta~" )) " )
+compute(band=detail alignment="0" expression=" tarjeta_nombre +'  ' +lookupdisplay(  tipo  )+' ' +lookupdisplay(  con_interes  )+ ' a '+  nro_meses +' meses '"border="0" color="0" x="9" y="4" height="56" width="1522"  name=tarjeta  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="9" y="192" height="56" width="526"  name=tarjeta_nombre  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="558" y="192" height="56" width="485" format="[general]"  name=tipo ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="5" color="0" x="1056" y="192" height="56" width="315" format="[general]"  name=con_interes edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.codetable=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="5" color="0" x="1390" y="192" height="56" width="325" format="[general]"  name=nro_meses ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

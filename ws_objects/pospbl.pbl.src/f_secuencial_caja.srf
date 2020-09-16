@@ -1,0 +1,52 @@
+﻿$PBExportHeader$f_secuencial_caja.srf
+$PBExportComments$funcion que obtiene el secuencial de documentos
+global type f_secuencial_caja from function_object
+end type
+
+forward prototypes
+global function long f_secuencial_caja (string tabla, integer caja)
+end prototypes
+
+global function long f_secuencial_caja (string tabla, integer caja);/*************************************************************/
+/* Esta funcion retorna el secuencial que toca de cualquier  */
+/* tabla, recuperando de la tabla SEQNO.                     */
+/*************************************************************/
+//pv_secuencia.cod_estab = :tabla and pv_secuencia.num_emision=:emision;
+
+LONG secuencial, li_i
+
+	SELECT pv_secuencia.seqno
+  	INTO :secuencial 
+  	FROM pv_secuencia with(holdlock)
+ 	WHERE pv_secuencia.cod_compania ='1' and pv_secuencia.nr_caja=:caja and pv_secuencia.tipo_movimiento=:tabla ;
+	 
+DO WHILE SQLCA.SqlDBCODE = 1205
+	FOR li_i = 1 to 200000
+	Next
+	SELECT pv_secuencia.seqno
+  	INTO :secuencial 
+  	FROM pv_secuencia with(holdlock)
+ 	WHERE  pv_secuencia.cod_compania ='1' and pv_secuencia.nr_caja=:caja and pv_secuencia.tipo_movimiento=:tabla ; 	
+LOOP
+
+IF SQLCA.SqlnRows = 0 then
+	gs_mensaje="ANEX_SEQNO"
+	f_mensajes(17)
+	return -1
+	rollback;
+END IF
+
+UPDATE pv_secuencia
+   SET SEQNO =SEQNO + 1  
+ WHERE  pv_secuencia.cod_compania ='1' and pv_secuencia.nr_caja=:caja and pv_secuencia.tipo_movimiento=:tabla ;
+
+IF SQLCA.SqlCode < 0 then
+	gs_mensaje="anex_seqno"
+	f_mensajes(18)
+	rollback;
+	return -1	
+END IF
+
+return secuencial
+end function
+

@@ -1,0 +1,29 @@
+﻿$PBExportHeader$f_forma_pago.srf
+global type f_forma_pago from function_object
+end type
+
+forward prototypes
+global function double f_forma_pago (string compania, long numero, string tipo_doc, integer tipo_pago, integer nr_caja)
+end prototypes
+
+global function double f_forma_pago (string compania, long numero, string tipo_doc, integer tipo_pago, integer nr_caja);double ldb_retorna
+string ls_nr_cta,ls_nr_cheque
+
+  SELECT pv_detalle_pago.monto,   
+         pv_detalle_pago.nr_cta,   
+         pv_detalle_pago.nr_cheque  
+    INTO :ldb_retorna,   
+         :ls_nr_cta,   
+         :ls_nr_cheque  
+    FROM pv_detalle_pago  
+   WHERE ( pv_detalle_pago.cod_compania = :compania ) AND  
+         ( pv_detalle_pago.numero = :numero ) AND  
+         ( pv_detalle_pago.tipo_doc = :tipo_doc )  and
+			( pv_detalle_pago.forma_pago = :tipo_pago )AND
+         	( pv_detalle_pago.NR_CAJA = :NR_CAJA )		;
+			
+			
+return ldb_retorna		
+
+end function
+

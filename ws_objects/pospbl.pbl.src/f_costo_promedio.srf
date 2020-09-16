@@ -1,0 +1,33 @@
+﻿$PBExportHeader$f_costo_promedio.srf
+global type f_costo_promedio from function_object
+end type
+
+forward prototypes
+global function double f_costo_promedio (integer cod_articulo, datetime fecha)
+end prototypes
+
+global function double f_costo_promedio (integer cod_articulo, datetime fecha);double ldb_costo
+datetime fec
+
+  SELECT top 1 INV_ARTICULO_MOVIMIENTO.COSTO_PROMEDIO,inv_movimiento.f_movimiento  
+    INTO :ldb_costo,:fec  
+    FROM INV_MOVIMIENTO,   
+         INV_ARTICULO_MOVIMIENTO  
+   WHERE ( INV_ARTICULO_MOVIMIENTO.TIPO_MOVIMIENTO = INV_MOVIMIENTO.TIPO_MOVIMIENTO ) and  
+         ( INV_MOVIMIENTO.NR_MOVIMIENTO = INV_ARTICULO_MOVIMIENTO.NR_MOVIMIENTO ) and  
+         ( ( INV_MOVIMIENTO.F_MOVIMIENTO <= :fecha ) and  
+         ( INV_ARTICULO_MOVIMIENTO.COD_ARTICULO = :cod_articulo ) )  
+			order by inv_movimiento.f_movimiento  desc;
+			
+	IF SQLCA.SqlCode < 0 then
+	gs_mensaje="fecha_costo_promedio"
+	f_mensajes(18)
+	rollback;
+	return -1	
+END IF
+
+			
+			
+return ldb_costo
+end function
+

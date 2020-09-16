@@ -1,0 +1,23 @@
+﻿$PBExportHeader$p_pos_webform.srj
+$PBExportComments$Generated .Net Web Form Application Project
+GeneratorID:{B2862E0E-86F1-493e-85A0-173B0DE22A37}GENBC00000000
+VirtualDirectoryName:puntonewweb
+TargetName:pos_webform.pbt
+IsFullBuild:0
+BuildSetupFile:0
+SetupFileName:pos.msi
+ServerName:192.168.0.100
+InitialCurrentDirectory:C:\PUNTO12\paralosbancos
+CommandLineParameters:
+WebWindowStyle:0
+UseIISDefaultDirectory:1
+DeployDestination:
+RenderFileManagerIcon:0
+RenderMailManagerIcon:0
+ResourceFiles:1
+pos.ini
+AssemblyFiles:0
+PBLibraryFiles:1
+pospbl.pbl
+JavaScriptFiles:0
+Win32DllFiles:0

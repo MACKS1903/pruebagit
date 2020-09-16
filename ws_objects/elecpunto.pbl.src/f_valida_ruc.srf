@@ -1,0 +1,22 @@
+﻿$PBExportHeader$f_valida_ruc.srf
+global type f_valida_ruc from function_object
+end type
+
+forward prototypes
+global function integer f_valida_ruc (string tipo, string ruc)
+end prototypes
+
+global function integer f_valida_ruc (string tipo, string ruc);integer i=1
+if tipo<> 'P' and tipo<>'F' then
+	
+	if ((tipo='C' ) or (integer(mid(ruc,3,1)) < 6)) then
+		i=f_digito_verificador(ruc,tipo)
+	else
+      i=f_digito_verificador69(ruc,tipo)
+	end if	
+	
+end if
+
+return i
+end function
+

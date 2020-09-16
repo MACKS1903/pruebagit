@@ -1,0 +1,44 @@
+﻿$PBExportHeader$f_comprobante.srf
+global type f_comprobante from function_object
+end type
+
+forward prototypes
+global function boolean f_comprobante (long tipo_comprob, long nr_comprob, string fecha_comprob)
+end prototypes
+
+global function boolean f_comprobante (long tipo_comprob, long nr_comprob, string fecha_comprob);// Programa Principal
+boolean lb_retorno
+double ldb_debito,ldb_credito
+
+select sum(valor)
+into :ldb_debito
+from cnt_det_comprob
+where signo = 'D'
+and tipo_comprob = :tipo_comprob
+and nro_comprob = :nr_comprob
+and convert(char(10),fecha_comprob,111) = :fecha_comprob;
+
+if IsNull(ldb_debito) or (ldb_debito <= 0 ) then
+	lb_retorno = false
+else
+	select sum(valor)
+	into :ldb_credito
+	from cnt_det_comprob
+	where signo = 'C'
+	and tipo_comprob = :tipo_comprob
+	and nro_comprob = :nr_comprob
+	and convert(char(10),fecha_comprob,111) = :fecha_comprob;
+
+	if IsNull(ldb_credito) or (ldb_credito <= 0 ) then
+		lb_retorno = false
+	else
+		if Round(ldb_debito,2) <> Round(ldb_credito,2) then
+			lb_retorno = false
+		else
+			lb_retorno = true
+		end if
+	end if
+end if
+Return(lb_retorno)
+end function
+
